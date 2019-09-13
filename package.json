@@ -1,0 +1,28 @@
+{
+  "name": "@geoblcks/mapboxlayer",
+  "version": "0.0.1",
+  "geoblocks_src": "src/mapbox/index.js",
+  "main": "dist/lib/mapboxlayer.js",
+  "module": "dist/lib/mapboxlayer.js",
+  "scripts": {
+    "build-api": "microbundle --format es --entry src/index.js",
+    "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
+    "build": "npm run build-api; npm run build-demo",
+    "lint": "eslint src/ examples",
+    "start": "parcel serve --port 8080 --log-level 4 examples/*.html",
+    "gh-pages": "rm -rf dist/lib && npm run build && gh-pages -d dist"
+  },
+  "browserslist": [
+    "last 1 Edge version"
+  ],
+  "dependencies": {
+    "mapbox-gl": "^1.3.1",
+    "ol": "^6.0.0-dev.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "gh-pages": "^2.1.1",
+    "microbundle": "v0.11.0",
+    "parcel-bundler": "^1.12.3"
+  }
+}
