@@ -1,4 +1,5 @@
-node_modules/
-dist/
-.cache/
-package-lock.json
+/node_modules/
+/dist/
+/.cache/
+/package-lock.json
+/*.tgz
