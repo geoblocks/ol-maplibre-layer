@@ -1,11 +1,11 @@
 {
   "name": "@geoblcks/mapboxlayer",
   "version": "0.0.1",
-  "geoblocks_src": "src/mapbox/index.js",
+  "geoblocks_src": "src/MapBoxLayer.js",
   "main": "dist/lib/mapboxlayer.js",
   "module": "dist/lib/mapboxlayer.js",
   "scripts": {
-    "build-api": "microbundle --format es --entry src/index.js",
+    "build-api": "microbundle --format es --entry src/MapBoxLayer.js",
     "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
     "build": "npm run build-api; npm run build-demo",
     "lint": "eslint src/ examples",

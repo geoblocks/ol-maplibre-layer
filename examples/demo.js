@@ -7,7 +7,7 @@ import View from 'ol/View.js';
 import TileLayer from 'ol/layer/Tile.js';
 import {OSM, TileDebug} from 'ol/source.js';
 
-import MapBoxLayer from '../src/mapbox/index.js';
+import MapBoxLayer from '../src/MapBoxLayer.js';
 
 const mapBoxStyle = 'https://vectortiles-staging.geoportail.lu/styles/roadmap/style.json'
 
