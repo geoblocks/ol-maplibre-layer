@@ -1,6 +1,6 @@
 {
   "name": "@geoblcks/mapboxlayer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "geoblocks_src": "src/MapBoxLayer.js",
   "main": "dist/lib/mapboxlayer.js",
   "module": "dist/lib/mapboxlayer.js",
