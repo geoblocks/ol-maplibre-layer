@@ -10,7 +10,7 @@
     "build": "npm run build-api; npm run build-demo",
     "lint": "eslint src/ examples",
     "start": "parcel serve --port 8080 --log-level 4 examples/*.html",
-    "gh-pages": "rm -rf dist/lib && npm run build && gh-pages -d dist"
+    "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "browserslist": [
     "last 1 Edge version"
