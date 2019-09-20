@@ -1,45 +1,6 @@
-html, body {
+html, body, .map {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
-}
-
-.map {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: calc(100% - 50px);
-
-}
-
-#apiControls {
-  margin: 0;
-  padding: 10px;
-  height: 30px;
-}
-
-/* Overview map styling */
-
-.ol-control.init-overviewmap {
-  bottom: 0.5em;
-  right: 0.5em;
-  background-color: #fafafa;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 0;
-}
-
-.ol-control.init-overviewmap .ol-overviewmap-map {
-  width: 100px;
-  height: 100px;
-  margin: 4px;
-}
-.ol-control.init-overviewmap .ol-overviewmap-map .ol-overviewmap-box {
-  border: 2px solid #63a6df;
-}
-.ol-control.init-overviewmap .ol-overviewmap-map .ol-overviewmap-box:hover {
-  cursor: move;
-}
-.ol-control.init-overviewmap button {
-  display: none;
 }
