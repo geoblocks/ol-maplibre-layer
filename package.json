@@ -14,7 +14,7 @@
     "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "browserslist": [
-    "> 1% and not IE > 0"
+    "> 1% and not IE > 0, Firefox ESR"
   ],
   "peerDependencies": {
     "mapbox-gl": "~1.0",
