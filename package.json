@@ -14,16 +14,18 @@
     "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "browserslist": [
-    "last 1 Edge version"
+    "> 1% and not IE > 0, Firefox ESR"
   ],
-  "dependencies": {
-    "mapbox-gl": "^1.3.1",
-    "ol": "^6.0.0-dev.4"
+  "peerDependencies": {
+    "mapbox-gl": "~1.0",
+    "ol": "~6.0"
   },
   "devDependencies": {
     "eslint": "^6.4.0",
     "gh-pages": "^2.1.1",
-    "microbundle": "v0.11.0",
+    "mapbox-gl": "^1.3.1",
+    "microbundle": "^0.11.0",
+    "ol": "^6.0.0-dev.10",
     "parcel-bundler": "^1.12.3"
   }
 }

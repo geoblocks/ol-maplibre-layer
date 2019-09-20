@@ -4,9 +4,19 @@ import {toLonLat} from 'ol/proj.js';
 
 import mapboxgl from 'mapbox-gl';
 
+/**
+ * @typedef {Object} Options
+ * @property {string} [accessToken]
+ * @property {string} style
+ * @property {string|HTMLElement} container
+ */
+
 
 export default class MapBox extends Layer {
 
+  /**
+   * @param {Options} options
+   */
   constructor(options) {
 
     const baseOptions = Object.assign({}, options);
@@ -36,6 +46,9 @@ export default class MapBox extends Layer {
     });
   }
 
+  /**
+   * @param {import('ol/PluggableMap').FrameState} frameState
+   */
   render(frameState) {
     const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
