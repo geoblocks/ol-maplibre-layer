@@ -94,4 +94,10 @@ export default class MapBox extends Layer {
     this.map_.setLayoutProperty(name, 'visibility', visible ? 'visible' : 'none');
   }
 
+  /**
+   * @return {mapboxgl.Style}
+   */
+  getStyle() {
+    return this.map_.getStyle();
+  }
 }
