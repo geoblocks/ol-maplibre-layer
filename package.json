@@ -13,7 +13,7 @@
     "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
     "build": "npm run build-api; npm run build-demo",
     "lint": "eslint src/ examples",
-    "start": "parcel serve --port 8080 --log-level 4 examples/*.html",
+    "start": "parcel serve --port 8080 examples/*.html",
     "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "browserslist": [
