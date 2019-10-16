@@ -13,7 +13,7 @@
     "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
     "build": "npm run build-api; npm run build-demo",
     "lint": "eslint src/ examples",
-    "start": "parcel serve --port 8080 --log-level 4 examples/*.html",
+    "start": "parcel serve --port 8080 examples/*.html",
     "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
   },
   "browserslist": [
@@ -24,11 +24,11 @@
     "ol": "~6.0"
   },
   "devDependencies": {
-    "eslint": "^6.4.0",
+    "eslint": "^6.5.1",
     "gh-pages": "^2.1.1",
-    "mapbox-gl": "^1.3.2",
+    "mapbox-gl": "^1.4.1",
     "microbundle": "^0.11.0",
-    "ol": "^6.0.0",
-    "parcel-bundler": "^1.12.3"
+    "ol": "^6.0.1",
+    "parcel-bundler": "^1.12.4"
   }
 }
