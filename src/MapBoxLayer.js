@@ -34,15 +34,7 @@ export default class MapBox extends Layer {
       container: options.container,
       style: options.style,
       attributionControl: false,
-      boxZoom: false,
-      doubleClickZoom: false,
-      dragPan: false,
-      dragRotate: false,
-      interactive: false,
-      keyboard: false,
-      pitchWithRotate: false,
-      scrollZoom: false,
-      touchZoomRotate: false
+      interactive: false
     });
   }
 
