@@ -24,7 +24,7 @@
     "ol": "~6.0"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "eslint": "^7.0.0",
     "gh-pages": "^2.1.1",
     "mapbox-gl": "^1.4.1",
     "microbundle": "^0.12.0",
