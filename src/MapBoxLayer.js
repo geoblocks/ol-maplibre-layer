@@ -24,7 +24,11 @@ export default class MapBox extends Layer {
     delete baseOptions.accessToken;
     delete baseOptions.style;
     delete baseOptions.container;
+    delete baseOptions.xyz;
+
     super(baseOptions);
+
+    this.xyz_ = options.xyz;
 
     if (options.accessToken) {
       mapboxgl.accessToken = options.accessToken;
@@ -91,5 +95,9 @@ export default class MapBox extends Layer {
    */
   getStyle() {
     return this.map_.getStyle();
+  }
+
+  getXYZ() {
+    return this.xyz_;
   }
 }
