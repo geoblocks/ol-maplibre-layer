@@ -42,6 +42,12 @@ export default class MapBox extends Layer {
     });
   }
 
+
+  getMapBoxMap() {
+    return this.map_;
+  }
+
+
   /**
    * @param {import('ol/PluggableMap').FrameState} frameState
    */
