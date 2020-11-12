@@ -9,7 +9,7 @@ import {OSM, TileDebug} from 'ol/source.js';
 
 import MapBoxLayer from '../src/MapBoxLayer.js';
 
-const mapBoxStyle = 'https://vectortiles-staging.geoportail.lu/styles/roadmap/style.json'
+const mapBoxStyle = 'https://vectortiles.geoportail.lu/styles/roadmap/style.json'
 
 const osmSource = new OSM();
 
