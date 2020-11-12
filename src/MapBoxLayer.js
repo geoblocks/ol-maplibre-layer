@@ -55,6 +55,8 @@ export default class MapBox extends Layer {
     const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
 
+    canvas.style.position = 'absolute';
+
     const visible = this.getVisible();
     canvas.style.display = visible ? 'block' : 'none';
 
