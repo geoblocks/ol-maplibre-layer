@@ -1,7 +1,8 @@
 {
   "name": "@geoblocks/mapboxlayer",
   "version": "0.0.7",
-  "geoblocks_src": "src/MapBoxLayer.js",
+  "license": "BSD-3-Clause",
+  "repository": "github:geoblocks/mapboxlayer",
   "main": "dist/lib/mapboxlayer.js",
   "module": "dist/lib/mapboxlayer.js",
   "files": [
