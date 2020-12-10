@@ -3,19 +3,16 @@
   "version": "0.0.7",
   "license": "BSD-3-Clause",
   "repository": "github:geoblocks/mapboxlayer",
-  "main": "dist/lib/mapboxlayer.js",
-  "module": "dist/lib/mapboxlayer.js",
+  "main": "src/MapBoxLayer.js",
+  "module": "src/MapBoxLayer.js",
   "files": [
-    "/src",
-    "/dist/lib"
+    "/src"
   ],
   "scripts": {
-    "build-api": "microbundle --format es --entry src/MapBoxLayer.js",
     "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
-    "build": "npm run build-api; npm run build-demo",
     "lint": "eslint src/ examples",
     "start": "parcel serve --port 8080 examples/*.html",
-    "gh-pages": "rm -rf dist && npm run build && gh-pages -d dist"
+    "gh-pages": "rm -rf dist && npm run build-demo && gh-pages -d dist"
   },
   "browserslist": [
     "> 1% and not IE > 0, Firefox ESR"
@@ -28,7 +25,6 @@
     "eslint": "^7.15.0",
     "gh-pages": "^3.1.0",
     "mapbox-gl": "^1.13.0",
-    "microbundle": "^0.12.0",
     "ol": "^6.4.3",
     "parcel-bundler": "^1.12.4"
   }
