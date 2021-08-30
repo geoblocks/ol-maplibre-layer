@@ -1,8 +1,8 @@
 import Layer from 'ol/layer/Layer';
 import {toDegrees} from 'ol/math';
-import {toLonLat} from 'ol/proj.js';
+import {toLonLat} from 'ol/proj';
 
-import mapboxgl from 'mapbox-gl';
+import maplibregl from 'maplibre-gl';
 
 /**
  * @typedef {Object} Options
@@ -12,7 +12,7 @@ import mapboxgl from 'mapbox-gl';
  */
 
 
-export default class MapBox extends Layer {
+export default class MapLibreLayer extends Layer {
 
   /**
    * @param {Options} options
@@ -31,22 +31,16 @@ export default class MapBox extends Layer {
     this.xyz_ = options.xyz;
 
     if (options.accessToken) {
-      mapboxgl.accessToken = options.accessToken;
+      maplibregl.accessToken = options.accessToken;
     }
 
-    this.map_ = new mapboxgl.Map({
+    this.map_ = new maplibregl.Map({
       container: options.container,
       style: options.style,
       attributionControl: false,
       interactive: false
     });
   }
-
-
-  getMapBoxMap() {
-    return this.map_;
-  }
-
 
   /**
    * @param {import('ol/PluggableMap').FrameState} frameState
@@ -91,6 +85,13 @@ export default class MapBox extends Layer {
   }
 
   /**
+   * @return {maplibregl.Map}
+   */
+   getMapLibreMap() {
+    return this.map_;
+  }
+
+  /**
    * @param {string} name
    * @param {boolean} visible
    */
@@ -99,7 +100,7 @@ export default class MapBox extends Layer {
   }
 
   /**
-   * @return {mapboxgl.Style}
+   * @return {maplibregl.Style}
    */
   getStyle() {
     return this.map_.getStyle();
