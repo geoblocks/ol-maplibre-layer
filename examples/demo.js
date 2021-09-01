@@ -1,22 +1,22 @@
 import 'ol/ol.css';
 import './style.css';
 
-import Map from 'ol/Map.js';
+import Map from 'ol/Map';
 
-import View from 'ol/View.js';
-import TileLayer from 'ol/layer/Tile.js';
-import {OSM, TileDebug} from 'ol/source.js';
+import View from 'ol/View';
+import TileLayer from 'ol/layer/Tile';
+import {OSM, TileDebug} from 'ol/source';
 
-import MapBoxLayer from '../src/MapBoxLayer.js';
+import MapLibreLayer from '../src/MapLibreLayer';
 
-const mapBoxStyle = 'https://vectortiles.geoportail.lu/styles/roadmap/style.json';
+const styleUrl = 'https://vectortiles.geoportail.lu/styles/roadmap/style.json';
 
 const osmSource = new OSM();
 
 window.map = new Map({
   layers: [
-    window.mbl = new MapBoxLayer({
-      style: mapBoxStyle,
+    window.mbl = new MapLibreLayer({
+      style: styleUrl,
       container: 'map'
     }),
     new TileLayer({

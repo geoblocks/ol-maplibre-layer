@@ -1,6 +1,6 @@
-# Geoblocks mapboxlayer
+# Geoblocks ol-maplibre-layer
 
-[DEMO](https://geoblocks.github.io/mapboxlayer/demo.html)
+[DEMO](https://geoblocks.github.io/ol-maplibre-layer/demo.html)
 
 ## Publish a new version to npm
 

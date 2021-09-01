@@ -1,10 +1,10 @@
 {
-  "name": "@geoblocks/mapboxlayer",
-  "version": "0.0.7",
+  "name": "@geoblocks/ol-maplibre-layer",
+  "version": "0.0.0",
   "license": "BSD-3-Clause",
-  "repository": "github:geoblocks/mapboxlayer",
-  "main": "src/MapBoxLayer.js",
-  "module": "src/MapBoxLayer.js",
+  "repository": "github:geoblocks/ol-maplibre-layer",
+  "main": "src/MapLibreLayer.js",
+  "module": "src/MapLibreLayer.js",
   "files": [
     "/src"
   ],
@@ -18,14 +18,14 @@
     "> 1% and not IE > 0, Firefox ESR"
   ],
   "peerDependencies": {
-    "mapbox-gl": "~1.0",
+    "maplibre-gl": ">=1.15.2",
     "ol": "~6.0"
   },
   "devDependencies": {
-    "eslint": "^7.15.0",
-    "gh-pages": "^3.1.0",
-    "mapbox-gl": "^1.13.0",
-    "ol": "^6.4.3",
-    "parcel-bundler": "^1.12.4"
+    "eslint": "^7.32.0",
+    "gh-pages": "^3.2.3",
+    "maplibre-gl": "^1.15.2",
+    "ol": "^6.6.1",
+    "parcel-bundler": "^1.12.5"
   }
 }
