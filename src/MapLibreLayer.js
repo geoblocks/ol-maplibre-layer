@@ -6,7 +6,6 @@ import maplibregl from 'maplibre-gl';
 
 /**
  * @typedef {Object} Options
- * @property {string} [accessToken]
  * @property {string} style
  * @property {string|HTMLElement} container
  */
@@ -21,7 +20,6 @@ export default class MapLibreLayer extends Layer {
 
     const baseOptions = Object.assign({}, options);
 
-    delete baseOptions.accessToken;
     delete baseOptions.style;
     delete baseOptions.container;
     delete baseOptions.xyz;
@@ -29,10 +27,6 @@ export default class MapLibreLayer extends Layer {
     super(baseOptions);
 
     this.xyz_ = options.xyz;
-
-    if (options.accessToken) {
-      maplibregl.accessToken = options.accessToken;
-    }
 
     this.map_ = new maplibregl.Map({
       container: options.container,
