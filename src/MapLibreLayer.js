@@ -61,14 +61,10 @@ export default class MapLibreLayer extends Layer {
 
     // adjust view parameters in mapbox
     const rotation = viewState.rotation;
-    if (rotation) {
-      this.map_.rotateTo(toDegrees(-rotation), {
-        animate: false
-      });
-    }
     this.map_.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
+      bearing: (-rotation * 180) / Math.PI,
       animate: false
     });
 
