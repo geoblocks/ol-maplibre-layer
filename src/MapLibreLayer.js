@@ -7,8 +7,7 @@ import maplibregl from 'maplibre-gl';
 /**
  * @typedef {Object} Options
  * @property {string} [accessToken]
- * @property {string} style
- * @property {string|HTMLElement} container
+ * @property {Object<string, *} maplibreOptions
  */
 
 
@@ -22,8 +21,7 @@ export default class MapLibreLayer extends Layer {
     const baseOptions = Object.assign({}, options);
 
     delete baseOptions.accessToken;
-    delete baseOptions.style;
-    delete baseOptions.container;
+    delete baseOptions.maplibreOptions;
 
     super(baseOptions);
 
@@ -31,16 +29,15 @@ export default class MapLibreLayer extends Layer {
       maplibregl.accessToken = options.accessToken;
     }
 
-    this.map_ = new maplibregl.Map({
-      container: options.container,
-      style: options.style,
+    this.map_ = new maplibregl.Map(Object.assign(options.maplibreOptions, {
       attributionControl: false,
       interactive: false
-    });
+    }));
   }
 
   /**
    * @param {import('ol/PluggableMap').FrameState} frameState
+   * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
     const canvas = this.map_.getCanvas();
