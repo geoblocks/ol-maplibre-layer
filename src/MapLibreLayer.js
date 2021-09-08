@@ -24,11 +24,8 @@ export default class MapLibreLayer extends Layer {
     delete baseOptions.accessToken;
     delete baseOptions.style;
     delete baseOptions.container;
-    delete baseOptions.xyz;
 
     super(baseOptions);
-
-    this.xyz_ = options.xyz;
 
     if (options.accessToken) {
       maplibregl.accessToken = options.accessToken;
@@ -93,9 +90,5 @@ export default class MapLibreLayer extends Layer {
    */
   getStyle() {
     return this.map_.getStyle();
-  }
-
-  getXYZ() {
-    return this.xyz_;
   }
 }
