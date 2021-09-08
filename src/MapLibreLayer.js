@@ -64,18 +64,11 @@ export default class MapLibreLayer extends Layer {
     this.map_.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
-      bearing: (-rotation * 180) / Math.PI,
+      bearing: toDegrees(-rotation),
       animate: false
     });
 
-    // cancel the scheduled update & trigger synchronous redraw
-    // see https://github.com/mapbox/mapbox-gl-js/issues/7893#issue-408992184
-    // NOTE: THIS MIGHT BREAK WHEN UPDATING MAPBOX
-    if (this.map_._frame) {
-      this.map_._frame.cancel();
-      this.map_._frame = null;
-    }
-    this.map_._render();
+    this.map_.redraw();
 
     return canvas;
   }
