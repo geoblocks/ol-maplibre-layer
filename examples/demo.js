@@ -18,12 +18,10 @@ window.map = new Map({
     new MapLibreLayer({
       maplibreOptions: {
         style: styleUrl,
-        container: 'map'
       },
       source: new Source({
         attributions: [
-          '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a>',
-          '<a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+          '<a href="https://map.geoportail.lu/" target="_blank">© map.geoportail.lu</a>',
         ],
       }),
     }),

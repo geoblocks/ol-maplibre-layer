@@ -29,10 +29,9 @@ export default class MapLibreLayer extends Layer {
       maplibregl.accessToken = options.accessToken;
     }
 
-    this.map_ = new maplibregl.Map(Object.assign(options.maplibreOptions, {
-      attributionControl: false,
-      interactive: false
-    }));
+    this.maplibreOptions_ = options.maplibreOptions;
+
+    this.map_ = null;
   }
 
   /**
@@ -40,10 +39,20 @@ export default class MapLibreLayer extends Layer {
    * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
+    if (!this.map_) {
+      const container = document.createElement('div');
+      container.style.position = 'absolute';
+      container.style.width = '100%';
+      container.style.height = '100%';
+
+      this.map_ = new maplibregl.Map(Object.assign(this.maplibreOptions_, {
+        container: container,
+        attributionControl: false,
+        interactive: false
+      }));
+    }
     const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
-
-    canvas.style.position = 'absolute';
 
     const visible = this.getVisible();
     canvas.style.display = visible ? 'block' : 'none';
@@ -54,17 +63,17 @@ export default class MapLibreLayer extends Layer {
     }
 
     // adjust view parameters in mapbox
-    const rotation = viewState.rotation;
     this.map_.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
-      bearing: toDegrees(-rotation),
+      bearing: toDegrees(-viewState.rotation),
       animate: false
     });
 
+    this.map_.resize();
     this.map_.redraw();
 
-    return canvas;
+    return this.map_.getContainer();
   }
 
   /**
