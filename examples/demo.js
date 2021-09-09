@@ -2,7 +2,7 @@ import 'ol/ol.css';
 import './style.css';
 
 import Map from 'ol/Map';
-
+import Source from 'ol/source/Source';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import {OSM, TileDebug} from 'ol/source';
@@ -15,9 +15,15 @@ const osmSource = new OSM();
 
 window.map = new Map({
   layers: [
-    window.mbl = new MapLibreLayer({
-      style: styleUrl,
-      container: 'map'
+    new MapLibreLayer({
+      maplibreOptions: {
+        style: styleUrl,
+      },
+      source: new Source({
+        attributions: [
+          '<a href="https://map.geoportail.lu/" target="_blank">© map.geoportail.lu</a>',
+        ],
+      }),
     }),
     new TileLayer({
       source: new TileDebug({

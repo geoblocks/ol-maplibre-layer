@@ -7,8 +7,7 @@ import maplibregl from 'maplibre-gl';
 /**
  * @typedef {Object} Options
  * @property {string} [accessToken]
- * @property {string} style
- * @property {string|HTMLElement} container
+ * @property {Object<string, *} maplibreOptions
  */
 
 
@@ -22,8 +21,7 @@ export default class MapLibreLayer extends Layer {
     const baseOptions = Object.assign({}, options);
 
     delete baseOptions.accessToken;
-    delete baseOptions.style;
-    delete baseOptions.container;
+    delete baseOptions.maplibreOptions;
 
     super(baseOptions);
 
@@ -31,22 +29,30 @@ export default class MapLibreLayer extends Layer {
       maplibregl.accessToken = options.accessToken;
     }
 
-    this.map_ = new maplibregl.Map({
-      container: options.container,
-      style: options.style,
-      attributionControl: false,
-      interactive: false
-    });
+    this.maplibreOptions_ = options.maplibreOptions;
+
+    this.map_ = null;
   }
 
   /**
    * @param {import('ol/PluggableMap').FrameState} frameState
+   * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
+    if (!this.map_) {
+      const container = document.createElement('div');
+      container.style.position = 'absolute';
+      container.style.width = '100%';
+      container.style.height = '100%';
+
+      this.map_ = new maplibregl.Map(Object.assign(this.maplibreOptions_, {
+        container: container,
+        attributionControl: false,
+        interactive: false
+      }));
+    }
     const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
-
-    canvas.style.position = 'absolute';
 
     const visible = this.getVisible();
     canvas.style.display = visible ? 'block' : 'none';
@@ -57,17 +63,17 @@ export default class MapLibreLayer extends Layer {
     }
 
     // adjust view parameters in mapbox
-    const rotation = viewState.rotation;
     this.map_.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
-      bearing: toDegrees(-rotation),
+      bearing: toDegrees(-viewState.rotation),
       animate: false
     });
 
+    this.map_.resize();
     this.map_.redraw();
 
-    return canvas;
+    return this.map_.getContainer();
   }
 
   /**
