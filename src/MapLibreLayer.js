@@ -34,7 +34,7 @@ export default class MapLibreLayer extends Layer {
     container.style.width = '100%';
     container.style.height = '100%';
 
-    this.map_ = new maplibregl.Map(Object.assign(options.maplibreOptions, {
+    this.map_ = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
       container: container,
       attributionControl: false,
       interactive: false
