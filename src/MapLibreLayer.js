@@ -29,9 +29,16 @@ export default class MapLibreLayer extends Layer {
       maplibregl.accessToken = options.accessToken;
     }
 
-    this.maplibreOptions_ = options.maplibreOptions;
+    const container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.width = '100%';
+    container.style.height = '100%';
 
-    this.map_ = null;
+    this.map_ = new maplibregl.Map(Object.assign(options.maplibreOptions, {
+      container: container,
+      attributionControl: false,
+      interactive: false
+    }));
   }
 
   /**
@@ -39,18 +46,6 @@ export default class MapLibreLayer extends Layer {
    * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
-    if (!this.map_) {
-      const container = document.createElement('div');
-      container.style.position = 'absolute';
-      container.style.width = '100%';
-      container.style.height = '100%';
-
-      this.map_ = new maplibregl.Map(Object.assign(this.maplibreOptions_, {
-        container: container,
-        attributionControl: false,
-        interactive: false
-      }));
-    }
     const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
 
@@ -79,7 +74,7 @@ export default class MapLibreLayer extends Layer {
   /**
    * @return {maplibregl.Map}
    */
-   getMapLibreMap() {
+  getMapLibreMap() {
     return this.map_;
   }
 
