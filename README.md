@@ -1,11 +1,31 @@
-# Geoblocks ol-maplibre-layer
+# MapLibre OpenLayers layer
 
-[DEMO](https://geoblocks.github.io/ol-maplibre-layer/demo.html)
+Render a MapLibre map as an OpenLayers layer.
 
-## Publish a new version to npm
+## Installation
 
-```bash
-npm version patch
-npm publish
-git push --tags origin master
+```shell
+npm i @geoblocks/ol-maplibre-layer
 ```
+
+## Code example
+
+```js
+import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
+
+const layer = new MapLibreLayer({
+  opacity: 0.7,
+  maplibreOptions: {
+    style: 'https://www.example.com/path/to/style.json',
+  }
+});
+
+// ...
+map.addLayer(layer);
+```
+
+All the properties passed to the construction (except `maplibreOptions`) are used to create the OpenLayers layer. `maplibreOptions` is used to create the MapLibre map.
+
+## Live examples
+
+[Basic example](https://geoblocks.github.io/ol-maplibre-layer/demo.html)
