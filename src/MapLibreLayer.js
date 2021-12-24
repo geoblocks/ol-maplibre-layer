@@ -33,6 +33,24 @@ export default class MapLibreLayer extends Layer {
       attributionControl: false,
       interactive: false
     }));
+
+    this.applyOpacity_();
+  }
+
+  /**
+   * @param {number} opacity
+   */
+  setOpacity(opacity) {
+    super.setOpacity(opacity);
+    this.applyOpacity_();
+  }
+
+  applyOpacity_() {
+    const canvas = this.maplibreMap.getCanvas();
+    const opacity = this.getOpacity().toString();
+    if (opacity !== canvas.style.opacity) {
+      canvas.style.opacity = opacity;
+    }
   }
 
   /**
@@ -40,13 +58,7 @@ export default class MapLibreLayer extends Layer {
    * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
-    const canvas = this.maplibreMap.getCanvas();
     const viewState = frameState.viewState;
-
-    const opacity = this.getOpacity().toString();
-    if (opacity !== canvas.style.opacity) {
-      canvas.style.opacity = opacity;
-    }
 
     // adjust view parameters in maplibre
     this.maplibreMap.jumpTo({
