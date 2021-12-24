@@ -43,9 +43,6 @@ export default class MapLibreLayer extends Layer {
     const canvas = this.maplibreMap.getCanvas();
     const viewState = frameState.viewState;
 
-    const visible = this.getVisible();
-    canvas.style.display = visible ? 'block' : 'none';
-
     const opacity = this.getOpacity().toString();
     if (opacity !== canvas.style.opacity) {
       canvas.style.opacity = opacity;
