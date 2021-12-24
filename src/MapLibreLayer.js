@@ -51,7 +51,7 @@ export default class MapLibreLayer extends Layer {
       canvas.style.opacity = opacity;
     }
 
-    // adjust view parameters in mapbox
+    // adjust view parameters in maplibre
     this.maplibreMap.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,

@@ -1,6 +1,6 @@
 # MapLibre OpenLayers layer
 
-Render a MapLibre map as an OpenLayers layer.
+Render a [MapLibre GL JS](https://maplibre.org/projects/#js) map as an [OpenLayers](https://openlayers.org/) layer.
 
 ## Installation
 
