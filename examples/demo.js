@@ -9,19 +9,17 @@ import {OSM, TileDebug} from 'ol/source';
 
 import MapLibreLayer from '../src/MapLibreLayer';
 
-const styleUrl = 'https://vectortiles.geoportail.lu/styles/roadmap/style.json';
-
 const osmSource = new OSM();
 
 window.map = new Map({
   layers: [
     new MapLibreLayer({
       maplibreOptions: {
-        style: styleUrl,
+        style: 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
       },
       source: new Source({
         attributions: [
-          '<a href="https://map.geoportail.lu/" target="_blank">© map.geoportail.lu</a>',
+          '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
         ],
       }),
     }),
@@ -34,7 +32,7 @@ window.map = new Map({
   ],
   target: 'map',
   view: new View({
-    center: [668584, 6408478],
-    zoom: 10
+    center: [924582, 5950164],
+    zoom: 8
   })
 });

@@ -6,8 +6,7 @@ import maplibregl from 'maplibre-gl';
 
 /**
  * @typedef {Object} Options
- * @property {string} [accessToken]
- * @property {Object<string, *} maplibreOptions
+ * @property {Object<string, *>} maplibreOptions
  */
 
 
@@ -20,25 +19,38 @@ export default class MapLibreLayer extends Layer {
 
     const baseOptions = Object.assign({}, options);
 
-    delete baseOptions.accessToken;
     delete baseOptions.maplibreOptions;
 
     super(baseOptions);
-
-    if (options.accessToken) {
-      maplibregl.accessToken = options.accessToken;
-    }
 
     const container = document.createElement('div');
     container.style.position = 'absolute';
     container.style.width = '100%';
     container.style.height = '100%';
 
-    this.map_ = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
+    this.maplibreMap = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
       container: container,
       attributionControl: false,
       interactive: false
     }));
+
+    this.applyOpacity_();
+  }
+
+  /**
+   * @param {number} opacity
+   */
+  setOpacity(opacity) {
+    super.setOpacity(opacity);
+    this.applyOpacity_();
+  }
+
+  applyOpacity_() {
+    const canvas = this.maplibreMap.getCanvas();
+    const opacity = this.getOpacity().toString();
+    if (opacity !== canvas.style.opacity) {
+      canvas.style.opacity = opacity;
+    }
   }
 
   /**
@@ -46,50 +58,19 @@ export default class MapLibreLayer extends Layer {
    * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
-    const canvas = this.map_.getCanvas();
     const viewState = frameState.viewState;
 
-    const visible = this.getVisible();
-    canvas.style.display = visible ? 'block' : 'none';
-
-    const opacity = this.getOpacity().toString();
-    if (opacity !== canvas.style.opacity) {
-      canvas.style.opacity = opacity;
-    }
-
-    // adjust view parameters in mapbox
-    this.map_.jumpTo({
+    // adjust view parameters in maplibre
+    this.maplibreMap.jumpTo({
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
       bearing: toDegrees(-viewState.rotation),
       animate: false
     });
 
-    this.map_.resize();
-    this.map_.redraw();
+    this.maplibreMap.resize();
+    this.maplibreMap.redraw();
 
-    return this.map_.getContainer();
-  }
-
-  /**
-   * @return {maplibregl.Map}
-   */
-  getMapLibreMap() {
-    return this.map_;
-  }
-
-  /**
-   * @param {string} name
-   * @param {boolean} visible
-   */
-  setLayerVisibility(name, visible) {
-    this.map_.setLayoutProperty(name, 'visibility', visible ? 'visible' : 'none');
-  }
-
-  /**
-   * @return {maplibregl.Style}
-   */
-  getStyle() {
-    return this.map_.getStyle();
+    return this.maplibreMap.getContainer();
   }
 }
