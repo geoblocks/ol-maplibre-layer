@@ -68,7 +68,11 @@ export default class MapLibreLayer extends Layer {
       animate: false
     });
 
-    this.maplibreMap.resize();
+    const maplibreCanvas = this.maplibreMap.getCanvas();
+    if (maplibreCanvas.width !== frameState.size[0] || maplibreCanvas.height !== frameState.size[1]) {
+      this.maplibreMap.resize();
+    }
+
     this.maplibreMap.redraw();
 
     return this.maplibreMap.getContainer();
