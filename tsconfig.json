@@ -1,0 +1,12 @@
+{
+  "include": [
+    "src/**/*.js"
+  ],
+  "compilerOptions": {
+    "target": "ES2017",
+    "allowJs": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  }
+}

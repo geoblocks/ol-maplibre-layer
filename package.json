@@ -9,10 +9,13 @@
   "main": "src/MapLibreLayer.js",
   "module": "src/MapLibreLayer.js",
   "files": [
-    "/src"
+    "/src",
+    "/types"
   ],
   "scripts": {
+    "prepack": "npm run generate-types",
     "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
+    "generate-types": "tsc --declaration --allowJs --emitDeclarationOnly --outDir types",
     "lint": "eslint src/ examples",
     "start": "parcel serve --port 8080 examples/*.html",
     "gh-pages": "rm -rf dist && npm run build-demo && gh-pages -d dist"
@@ -21,14 +24,15 @@
     "> 1% and not IE > 0, Firefox ESR"
   ],
   "peerDependencies": {
-    "maplibre-gl": ">=2.0.4",
+    "maplibre-gl": ">=2.1",
     "ol": ">=6.0"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
+    "eslint": "^8.10.0",
     "gh-pages": "^3.2.3",
-    "maplibre-gl": "^2.0.4",
-    "ol": "^6.12.0",
-    "parcel-bundler": "^1.12.5"
+    "maplibre-gl": "^2.1.6",
+    "ol": "^6.13.0",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.6.2"
   }
 }
