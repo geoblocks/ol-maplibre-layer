@@ -31,7 +31,8 @@ export default class MapLibreLayer extends Layer {
     this.maplibreMap = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
       container: container,
       attributionControl: false,
-      interactive: false
+      interactive: false,
+      trackResize: false,
     }));
 
     this.applyOpacity_();
