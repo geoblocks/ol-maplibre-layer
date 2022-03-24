@@ -5,11 +5,9 @@ import Map from 'ol/Map';
 import Source from 'ol/source/Source';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import {OSM, TileDebug} from 'ol/source';
+import {TileDebug} from 'ol/source';
 
 import MapLibreLayer from '../src/MapLibreLayer';
-
-const osmSource = new OSM();
 
 window.map = new Map({
   layers: [
@@ -24,10 +22,7 @@ window.map = new Map({
       }),
     }),
     new TileLayer({
-      source: new TileDebug({
-        projection: 'EPSG:3857',
-        tileGrid: osmSource.getTileGrid()
-      })
+      source: new TileDebug()
     })
   ],
   target: 'map',
