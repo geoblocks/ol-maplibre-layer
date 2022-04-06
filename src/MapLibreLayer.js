@@ -31,7 +31,8 @@ export default class MapLibreLayer extends Layer {
     this.maplibreMap = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
       container: container,
       attributionControl: false,
-      interactive: false
+      interactive: false,
+      trackResize: false,
     }));
 
     this.applyOpacity_();
@@ -75,6 +76,11 @@ export default class MapLibreLayer extends Layer {
 
     this.maplibreMap.redraw();
 
+    if (!maplibreCanvas.isConnected) {
+      // The canvas is not connected to the DOM, request a map rendering at the next animation frame
+      // to set the canvas size.
+      this.getMapInternal().render();
+    }
     return this.maplibreMap.getContainer();
   }
 }
