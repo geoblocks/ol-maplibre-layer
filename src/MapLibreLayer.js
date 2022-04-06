@@ -76,6 +76,11 @@ export default class MapLibreLayer extends Layer {
 
     this.maplibreMap.redraw();
 
+    if (!maplibreCanvas.isConnected) {
+      // The canvas is not connected to the DOM, request a map rendering at the next animation frame
+      // to set the canvas size.
+      this.getMapInternal().render();
+    }
     return this.maplibreMap.getContainer();
   }
 }
