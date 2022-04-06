@@ -25,10 +25,10 @@
     "ol": ">=6.0"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
+    "eslint": "^8.12.0",
     "gh-pages": "^3.2.3",
-    "maplibre-gl": "^2.0.4",
-    "ol": "^6.12.0",
+    "maplibre-gl": "^2.1.7",
+    "ol": "^6.14.1",
     "parcel-bundler": "^1.12.5"
   }
 }
