@@ -70,17 +70,16 @@ export default class MapLibreLayer extends Layer {
     });
 
     const maplibreCanvas = this.maplibreMap.getCanvas();
-    if (maplibreCanvas.width !== frameState.size[0] || maplibreCanvas.height !== frameState.size[1]) {
+    if (!maplibreCanvas.isConnected) {
+      // The canvas is not connected to the DOM, request a map rendering at the next animation frame
+      // to set the canvas size.
+      this.getMapInternal().render();
+    } else if (maplibreCanvas.width !== frameState.size[0] || maplibreCanvas.height !== frameState.size[1]) {
       this.maplibreMap.resize();
     }
 
     this.maplibreMap.redraw();
 
-    if (!maplibreCanvas.isConnected) {
-      // The canvas is not connected to the DOM, request a map rendering at the next animation frame
-      // to set the canvas size.
-      this.getMapInternal().render();
-    }
     return this.maplibreMap.getContainer();
   }
 }
