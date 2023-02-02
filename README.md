@@ -17,7 +17,7 @@ const layer = new MapLibreLayer({
   opacity: 0.7,
   maplibreOptions: {
     style: 'https://www.example.com/path/to/style.json',
-  }
+  },
 });
 
 // ...

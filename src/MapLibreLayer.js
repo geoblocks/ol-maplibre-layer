@@ -9,14 +9,11 @@ import maplibregl from 'maplibre-gl';
  * @property {Object<string, *>} maplibreOptions
  */
 
-
 export default class MapLibreLayer extends Layer {
-
   /**
    * @param {Options} options
    */
   constructor(options) {
-
     const baseOptions = Object.assign({}, options);
 
     delete baseOptions.maplibreOptions;
@@ -28,12 +25,14 @@ export default class MapLibreLayer extends Layer {
     container.style.width = '100%';
     container.style.height = '100%';
 
-    this.maplibreMap = new maplibregl.Map(Object.assign({}, options.maplibreOptions, {
-      container: container,
-      attributionControl: false,
-      interactive: false,
-      trackResize: false,
-    }));
+    this.maplibreMap = new maplibregl.Map(
+      Object.assign({}, options.maplibreOptions, {
+        container: container,
+        attributionControl: false,
+        interactive: false,
+        trackResize: false,
+      })
+    );
 
     this.applyOpacity_();
   }
@@ -66,7 +65,7 @@ export default class MapLibreLayer extends Layer {
       center: toLonLat(viewState.center),
       zoom: viewState.zoom - 1,
       bearing: toDegrees(-viewState.rotation),
-      animate: false
+      animate: false,
     });
 
     const maplibreCanvas = this.maplibreMap.getCanvas();
@@ -74,7 +73,10 @@ export default class MapLibreLayer extends Layer {
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
       this.getMapInternal().render();
-    } else if (maplibreCanvas.width !== frameState.size[0] || maplibreCanvas.height !== frameState.size[1]) {
+    } else if (
+      maplibreCanvas.width !== frameState.size[0] ||
+      maplibreCanvas.height !== frameState.size[1]
+    ) {
       this.maplibreMap.resize();
     }
 
