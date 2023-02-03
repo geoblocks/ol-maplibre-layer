@@ -34,6 +34,10 @@ export default class MapLibreLayer extends Layer {
       })
     );
 
+    const source = this.getSource();
+    if (source.setMapLibreMap) {
+      source.setMapLibreMap(this.maplibreMap);
+    }
     this.applyOpacity_();
   }
 

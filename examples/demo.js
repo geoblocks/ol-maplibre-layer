@@ -2,7 +2,7 @@ import 'ol/ol.css';
 import './style.css';
 
 import Map from 'ol/Map';
-import Source from 'ol/source/Source';
+import Source from '../src/MapLibreSource';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import {TileDebug} from 'ol/source';
