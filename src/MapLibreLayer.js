@@ -54,7 +54,7 @@ export default class MapLibreLayer extends Layer {
   }
 
   /**
-   * @param {import('ol/PluggableMap').FrameState} frameState
+   * @param {import('ol/Map').FrameState} frameState
    * @return {HTMLCanvasElement} canvas
    */
   render(frameState) {
@@ -73,10 +73,7 @@ export default class MapLibreLayer extends Layer {
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
       this.getMapInternal().render();
-    } else if (
-      maplibreCanvas.width !== frameState.size[0] ||
-      maplibreCanvas.height !== frameState.size[1]
-    ) {
+    } else if (!sameSize(maplibreCanvas, frameState)) {
       this.maplibreMap.resize();
     }
 
@@ -84,4 +81,17 @@ export default class MapLibreLayer extends Layer {
 
     return this.maplibreMap.getContainer();
   }
+}
+
+/**
+ *
+ * @param {HTMLCanvasElement} canvas
+ * @param {import('ol/Map').FrameState} frameState
+ * @return boolean
+ */
+function sameSize(canvas, frameState) {
+  return (
+    canvas.width === Math.floor(frameState.size[0] * frameState.pixelRatio) ||
+    canvas.height === Math.floor(frameState.size[1] * frameState.pixelRatio)
+  );
 }
