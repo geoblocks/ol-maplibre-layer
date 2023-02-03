@@ -9,19 +9,21 @@ import {TileDebug} from 'ol/source';
 
 import MapLibreLayer from '../src/MapLibreLayer';
 
+const mapLibreLayer = new MapLibreLayer({
+  maplibreOptions: {
+    style:
+      'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
+  },
+  source: new Source({
+    attributions: [
+      '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
+    ],
+  }),
+});
+
 window.map = new Map({
   layers: [
-    new MapLibreLayer({
-      maplibreOptions: {
-        style:
-          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
-      },
-      source: new Source({
-        attributions: [
-          '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
-        ],
-      }),
-    }),
+    mapLibreLayer,
     new TileLayer({
       source: new TileDebug(),
     }),
@@ -32,3 +34,7 @@ window.map = new Map({
     zoom: 8,
   }),
 });
+
+window.refreshSource = () => {
+  mapLibreLayer.getSource().refresh();
+};

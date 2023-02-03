@@ -1,4 +1,4 @@
-import Source from "ol/source/Source";
+import Source from 'ol/source/Source';
 
 export default class MapLibreSource extends Source {
   constructor(options) {
