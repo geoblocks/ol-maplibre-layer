@@ -13,7 +13,8 @@ window.map = new Map({
   layers: [
     new MapLibreLayer({
       maplibreOptions: {
-        style: 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
+        style:
+          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
       },
       source: new Source({
         attributions: [
@@ -22,12 +23,12 @@ window.map = new Map({
       }),
     }),
     new TileLayer({
-      source: new TileDebug()
-    })
+      source: new TileDebug(),
+    }),
   ],
   target: 'map',
   view: new View({
     center: [924582, 5950164],
-    zoom: 8
-  })
+    zoom: 8,
+  }),
 });
