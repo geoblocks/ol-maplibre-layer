@@ -30,7 +30,6 @@ export default class MapLibreLayer extends Layer {
         container: container,
         attributionControl: false,
         interactive: false,
-        trackResize: false,
       })
     );
 
