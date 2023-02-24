@@ -91,7 +91,7 @@ export default class MapLibreLayer extends Layer {
  */
 function sameSize(canvas, frameState) {
   return (
-    canvas.width === Math.floor(frameState.size[0] * frameState.pixelRatio) ||
+    canvas.width === Math.floor(frameState.size[0] * frameState.pixelRatio) &&
     canvas.height === Math.floor(frameState.size[1] * frameState.pixelRatio)
   );
 }
