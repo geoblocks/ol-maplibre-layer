@@ -8,12 +8,15 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Npm install
         run: npm install
 
       - name: Lint
         run: npm run lint
+
+      - name: Build demo
+        run: npm run build-demo

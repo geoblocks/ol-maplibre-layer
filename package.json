@@ -6,15 +6,20 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "src/MapLibreLayer.js",
   "module": "src/MapLibreLayer.js",
   "files": [
     "/src"
   ],
+  "targets": {
+    "demo": {
+      "context": "browser",
+      "publicUrl": "./"
+    }
+  },
   "scripts": {
-    "build-demo": "parcel build --out-dir dist examples/*.html --public-url ./",
+    "build-demo": "parcel build --target demo examples/*.html",
     "lint": "eslint src/ examples",
-    "start": "parcel serve --port 8080 examples/*.html",
+    "start": "parcel serve examples/*.html",
     "gh-pages": "rm -rf dist && npm run build-demo && gh-pages -d dist"
   },
   "browserslist": [
@@ -25,13 +30,13 @@
     "ol": ">=6.10"
   },
   "devDependencies": {
-    "eslint": "^8.24.0",
-    "eslint-config-prettier": "^8.6.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "^5.0.0",
     "maplibre-gl": "^2.4.0",
-    "ol": "^7.1.0",
-    "parcel-bundler": "^1.12.5",
-    "prettier": "^2.8.3"
+    "ol": "^7.3.0",
+    "parcel": "^2.8.3",
+    "prettier": "^2.8.7"
   }
 }
