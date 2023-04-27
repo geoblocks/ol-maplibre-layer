@@ -7,7 +7,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import {TileDebug} from 'ol/source';
 
-import MapLibreLayer from '../src/MapLibreLayer';
+import MapLibreLayer from '../src/ol-maplibre-layer';
 
 window.map = new Map({
   layers: [

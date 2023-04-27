@@ -6,37 +6,44 @@
   "publishConfig": {
     "access": "public"
   },
-  "module": "src/MapLibreLayer.js",
+  "type": "module",
+  "source": "src/ol-maplibre-layer.ts",
+  "main": "dist/ol-maplibre-layer.mjs",
+  "types": "dist/ol-maplibre-layer.d.ts",
   "files": [
-    "/src"
+    "/src",
+    "/dist"
   ],
   "targets": {
     "demo": {
       "context": "browser",
+      "distDir": "build",
       "publicUrl": "./"
     }
   },
   "scripts": {
+    "build": "parcel build",
     "build-demo": "parcel build --target demo examples/*.html",
-    "lint": "eslint src/ examples",
+    "lint": "eslint src/* examples/*.js",
     "start": "parcel serve examples/*.html",
-    "gh-pages": "rm -rf dist && npm run build-demo && gh-pages -d dist"
+    "gh-pages": "rm -rf build && npm run build-demo && gh-pages -d build"
   },
-  "browserslist": [
-    "> 1% and not IE > 0, Firefox ESR"
-  ],
   "peerDependencies": {
     "maplibre-gl": ">=2.0.4",
     "ol": ">=6.10"
   },
   "devDependencies": {
+    "@parcel/transformer-typescript-types": "^2.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "gh-pages": "^5.0.0",
-    "maplibre-gl": "^2.4.0",
+    "maplibre-gl": "3.0.0-pre.5",
     "ol": "^7.3.0",
     "parcel": "^2.8.3",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "typescript": "^5.0.4"
   }
 }
