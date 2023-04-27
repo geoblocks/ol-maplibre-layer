@@ -8,7 +8,7 @@
   },
   "type": "module",
   "source": "src/ol-maplibre-layer.ts",
-  "main": "dist/ol-maplibre-layer.mjs",
+  "main": "dist/ol-maplibre-layer.js",
   "types": "dist/ol-maplibre-layer.d.ts",
   "files": [
     "/src",
