@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "lib": ["es2015", "dom"],
+        "isolatedModules": true,
+        "noImplicitAny": true,
+        "strict": true,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+    }
+}

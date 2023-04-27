@@ -3,17 +3,21 @@ env:
   es6: true
 plugins:
   - prettier
+  - "@typescript-eslint"
 extends:
   - eslint:recommended
   - plugin:prettier/recommended
+parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
 rules:
   eqeqeq: error
-  no-duplicate-imports: error
+  no-duplicate-imports: 'off'
   no-unused-vars: [error, {vars: all, args: none}]
   no-var: error
   object-shorthand: [error, consistent]
   prefer-arrow-callback: error
   prefer-const: error
+  '@typescript-eslint/consistent-type-imports': error
+  '@typescript-eslint/no-duplicate-imports': error
