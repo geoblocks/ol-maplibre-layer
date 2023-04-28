@@ -35,6 +35,11 @@ export default class MapLibreLayer extends Layer {
     this.applyOpacity_();
   }
 
+  override disposeInternal() {
+    this.maplibreMap.remove();
+    super.disposeInternal();
+  }
+
   override setOpacity(opacity: number) {
     super.setOpacity(opacity);
     this.applyOpacity_();
