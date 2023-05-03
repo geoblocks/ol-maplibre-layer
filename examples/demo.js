@@ -9,19 +9,21 @@ import {TileDebug} from 'ol/source';
 
 import MapLibreLayer from '../src/ol-maplibre-layer';
 
-window.map = new Map({
+const vectorTiles = new MapLibreLayer({
+  maplibreOptions: {
+    style:
+      'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
+  },
+  source: new Source({
+    attributions: [
+      '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
+    ],
+  }),
+})
+
+const map = new Map({
   layers: [
-    new MapLibreLayer({
-      maplibreOptions: {
-        style:
-          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
-      },
-      source: new Source({
-        attributions: [
-          '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
-        ],
-      }),
-    }),
+    vectorTiles,
     new TileLayer({
       source: new TileDebug(),
     }),
@@ -32,3 +34,9 @@ window.map = new Map({
     zoom: 8,
   }),
 });
+
+const applyStyleBtn = document.getElementById("applyStyleBtn");
+const applyStyleInput = document.getElementById("applyStyleInput");
+applyStyleBtn.addEventListener("click", () => {
+  vectorTiles.maplibreMap.setVectorStyle(applyStyleInput.value)
+})

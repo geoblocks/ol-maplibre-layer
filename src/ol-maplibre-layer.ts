@@ -11,10 +11,11 @@ export type MapLibreLayerOptions = LayerOptions & {
 };
 
 export default class MapLibreLayer extends Layer {
-  maplibreMap: maplibregl.Map;
+  maplibreMap: maplibregl.Map
+  setStyle: any;
 
   constructor(options: MapLibreLayerOptions) {
-    const {maplibreOptions, ...baseOptions} = options;
+    const { maplibreOptions, ...baseOptions } = options;
 
     super(baseOptions);
 
@@ -32,6 +33,8 @@ export default class MapLibreLayer extends Layer {
       })
     );
 
+    // @ts-ignore
+    this.maplibreMap["setVectorStyle"] = this.setVectorStyle
     this.applyOpacity_();
   }
 
@@ -75,6 +78,11 @@ export default class MapLibreLayer extends Layer {
     this.maplibreMap.redraw();
 
     return this.maplibreMap.getContainer();
+  }
+
+  // change vectorTiles styling
+  public setVectorStyle(style: string) {
+    return this.setStyle(style)
   }
 }
 
