@@ -1,10 +1,10 @@
-import Layer from 'ol/layer/Layer';
-import {toDegrees} from 'ol/math';
-import {toLonLat} from 'ol/proj';
+import Layer from 'ol/layer/Layer.js';
+import {toDegrees} from 'ol/math.js';
+import {toLonLat} from 'ol/proj.js';
 
 import maplibregl from 'maplibre-gl';
-import type {FrameState} from 'ol/Map';
-import type {Options as LayerOptions} from 'ol/layer/Layer';
+import type {FrameState} from 'ol/Map.js';
+import type {Options as LayerOptions} from 'ol/layer/Layer.js';
 
 export type MapLibreLayerOptions = LayerOptions & {
   maplibreOptions: maplibregl.MapOptions;
