@@ -2,5 +2,4 @@
 /dist/
 /build/
 /.parcel-cache/
-/package-lock.json
 /*.tgz
