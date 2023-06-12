@@ -35,8 +35,8 @@
   "devDependencies": {
     "@parcel/packager-ts": "2.9.2",
     "@parcel/transformer-typescript-types": "2.9.2",
-    "@typescript-eslint/eslint-plugin": "5.59.9",
-    "@typescript-eslint/parser": "5.59.9",
+    "@typescript-eslint/eslint-plugin": "5.59.11",
+    "@typescript-eslint/parser": "5.59.11",
     "eslint": "8.42.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
