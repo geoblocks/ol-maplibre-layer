@@ -7,7 +7,7 @@ import type {FrameState} from 'ol/Map.js';
 import type {Options as LayerOptions} from 'ol/layer/Layer.js';
 
 export type MapLibreLayerOptions = LayerOptions & {
-  maplibreOptions: maplibregl.MapOptions;
+  maplibreOptions: Omit<maplibregl.MapOptions, 'container'>;
 };
 
 export default class MapLibreLayer extends Layer {
