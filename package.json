@@ -44,7 +44,7 @@
     "maplibre-gl": "3.1.0",
     "ol": "7.4.0",
     "parcel": "2.9.3",
-    "prettier": "2.8.8",
+    "prettier": "3.0.0",
     "typescript": "5.1.6"
   }
 }
