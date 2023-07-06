@@ -29,7 +29,7 @@ export default class MapLibreLayer extends Layer {
         attributionControl: false,
         interactive: false,
         trackResize: false,
-      })
+      }),
     );
 
     this.applyOpacity_();

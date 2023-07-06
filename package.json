@@ -25,6 +25,8 @@
     "build": "parcel build",
     "build-demo": "parcel build --target demo examples/*.html",
     "lint": "eslint src/* examples/*.js",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
     "start": "parcel serve examples/*.html",
     "gh-pages": "rm -rf build && npm run build-demo && gh-pages -d build"
   },
@@ -39,7 +41,6 @@
     "@typescript-eslint/parser": "5.61.0",
     "eslint": "8.44.0",
     "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-prettier": "4.2.1",
     "gh-pages": "5.0.0",
     "maplibre-gl": "3.1.0",
     "ol": "7.4.0",

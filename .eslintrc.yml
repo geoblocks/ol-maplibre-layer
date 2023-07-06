@@ -2,12 +2,11 @@ env:
   browser: true
   es6: true
 plugins:
-  - prettier
-  - "@typescript-eslint"
+  - '@typescript-eslint'
 extends:
   - eslint:recommended
-  - plugin:prettier/recommended
-parser: "@typescript-eslint/parser"
+  - prettier
+parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2018
   sourceType: module
