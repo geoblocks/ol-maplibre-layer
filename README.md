@@ -7,6 +7,7 @@ Render a [MapLibre GL JS](https://maplibre.org/projects/#js) map as an [OpenLaye
 ```shell
 npm i @geoblocks/ol-maplibre-layer
 ```
+
 OpenLayers and MapLibre GL JS are peer dependencies, so you need to install them too.
 
 ```shell
@@ -31,7 +32,6 @@ map.addLayer(layer);
 
 All the properties passed to the construction (except `maplibreOptions`) are used to create the [OpenLayers layer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Layer-Layer.html).
 `maplibreOptions` is used to create the [MapLibre map](https://maplibre.org/maplibre-gl-js-docs/api/map/).
-
 
 The MapLibreLayer exposes the underlying MapLibre map as public property, so you can use it to interact with the map.
 
