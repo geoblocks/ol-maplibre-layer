@@ -41,7 +41,7 @@
     "@typescript-eslint/parser": "6.4.0",
     "eslint": "8.47.0",
     "eslint-config-prettier": "9.0.0",
-    "gh-pages": "5.0.0",
+    "gh-pages": "6.0.0",
     "maplibre-gl": "3.3.0",
     "ol": "7.5.1",
     "parcel": "2.9.3",
