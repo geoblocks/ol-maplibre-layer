@@ -28,6 +28,7 @@
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "start": "parcel serve examples/*.html",
+    "typecheck": "tsc",
     "gh-pages": "rm -rf build && npm run build-demo && gh-pages -d build"
   },
   "peerDependencies": {
