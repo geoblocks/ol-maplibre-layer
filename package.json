@@ -38,8 +38,8 @@
   "devDependencies": {
     "@parcel/packager-ts": "2.9.3",
     "@parcel/transformer-typescript-types": "2.9.3",
-    "@typescript-eslint/eslint-plugin": "6.7.3",
-    "@typescript-eslint/parser": "6.7.3",
+    "@typescript-eslint/eslint-plugin": "6.7.4",
+    "@typescript-eslint/parser": "6.7.4",
     "eslint": "8.50.0",
     "eslint-config-prettier": "9.0.0",
     "gh-pages": "6.0.0",
