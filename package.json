@@ -1,6 +1,6 @@
 {
   "name": "@geoblocks/ol-maplibre-layer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "license": "BSD-3-Clause",
   "repository": "github:geoblocks/ol-maplibre-layer",
   "publishConfig": {
