@@ -7,7 +7,6 @@
     "access": "public"
   },
   "type": "module",
-  "source": "src/ol-maplibre-layer.ts",
   "main": "dist/ol-maplibre-layer.js",
   "types": "dist/ol-maplibre-layer.d.ts",
   "files": [
@@ -15,8 +14,11 @@
     "/dist"
   ],
   "targets": {
+    "main": {
+      "source": "src/ol-maplibre-layer.ts"
+    },
     "demo": {
-      "context": "browser",
+      "source": "examples/demo.html",
       "distDir": "build",
       "publicUrl": "./"
     }
@@ -24,13 +26,11 @@
   "scripts": {
     "prepack": "npm run build",
     "build": "parcel build",
-    "build-demo": "parcel build --target demo examples/*.html",
     "lint": "eslint src/* examples/*.js",
     "prettier:check": "prettier --check .",
-    "prettier:write": "prettier --write .",
-    "start": "parcel serve examples/*.html",
+    "start": "parcel serve --target demo",
     "typecheck": "tsc",
-    "gh-pages": "rm -rf build && npm run build-demo && gh-pages -d build"
+    "gh-pages": "rm -rf build && npm run build && gh-pages -d build"
   },
   "peerDependencies": {
     "maplibre-gl": ">=2.0.4",
