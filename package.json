@@ -37,17 +37,17 @@
     "ol": ">=6.10"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "2.10.3",
-    "@parcel/transformer-typescript-types": "2.10.3",
-    "@typescript-eslint/eslint-plugin": "6.13.2",
-    "@typescript-eslint/parser": "6.13.2",
-    "eslint": "8.55.0",
+    "@parcel/packager-ts": "2.11.0",
+    "@parcel/transformer-typescript-types": "2.11.0",
+    "@typescript-eslint/eslint-plugin": "6.18.0",
+    "@typescript-eslint/parser": "6.18.0",
+    "eslint": "8.56.0",
     "eslint-config-prettier": "9.1.0",
-    "gh-pages": "6.1.0",
+    "gh-pages": "6.1.1",
     "maplibre-gl": "3.6.2",
     "ol": "8.2.0",
-    "parcel": "2.10.3",
-    "prettier": "3.1.0",
+    "parcel": "2.11.0",
+    "prettier": "3.1.1",
     "typescript": "5.3.3"
   }
 }
