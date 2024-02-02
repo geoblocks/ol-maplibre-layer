@@ -18,7 +18,7 @@ window.map = new Map({
       },
       source: new Source({
         attributions: [
-          '<a href="https://www.geo.admin.ch/en/geo-services/geo-services/portrayal-services-web-mapping/vector_tiles_service.html" target="_blank">© swisstopo</a>',
+          '<a href="https://www.geo.admin.ch/en/vector-tiles-service-available-services-and-data" target="_blank">© swisstopo</a>',
         ],
       }),
     }),
