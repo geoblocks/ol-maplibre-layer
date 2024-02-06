@@ -8,6 +8,6 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "noImplicitOverride": true,
-  },
+    "noImplicitOverride": true
+  }
 }
