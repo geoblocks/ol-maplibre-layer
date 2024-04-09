@@ -13,7 +13,7 @@ window.map = new Map({
     new MapLibreLayer({
       maplibreOptions: {
         style:
-          'https://maps.geops.io/styles/travic_v2/style.json?key=5cc87b12d7c5370001c1d655200a40164917492f8a22331dbf108820',
+          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
       },
     }),
     new TileLayer({
