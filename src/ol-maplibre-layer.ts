@@ -10,6 +10,8 @@ import {EventsKey} from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import MaplibreLayerRenderer from './MaplibreLayerRenderer';
 import {unByKey} from 'ol/Observable';
+import {Source} from 'ol/source';
+import getMaplibreAttributions from './getMaplibreAttributions';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
@@ -26,7 +28,14 @@ export default class MapLibreLayer extends Layer {
   private olListenersKeys: EventsKey[] = [];
 
   constructor(options: MapLibreLayerOptions) {
-    super(options);
+    super({
+      source: new Source({
+        attributions: () => {
+          return getMaplibreAttributions(this.maplibreMap);
+        },
+      }),
+      ...options,
+    });
   }
 
   override disposeInternal() {

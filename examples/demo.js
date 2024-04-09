@@ -2,7 +2,6 @@ import 'ol/ol.css';
 import './style.css';
 
 import Map from 'ol/Map';
-import Source from 'ol/source/Source';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import {TileDebug} from 'ol/source';
@@ -14,13 +13,8 @@ window.map = new Map({
     new MapLibreLayer({
       maplibreOptions: {
         style:
-          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
+          'https://maps.geops.io/styles/travic_v2/style.json?key=5cc87b12d7c5370001c1d655200a40164917492f8a22331dbf108820',
       },
-      source: new Source({
-        attributions: [
-          '<a href="https://www.geo.admin.ch/en/vector-tiles-service-available-services-and-data" target="_blank">© swisstopo</a>',
-        ],
-      }),
     }),
     new TileLayer({
       source: new TileDebug(),
