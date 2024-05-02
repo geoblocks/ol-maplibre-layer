@@ -1,9 +1,5 @@
 import Layer from 'ol/layer/Layer.js';
-import {toDegrees} from 'ol/math.js';
-import {toLonLat} from 'ol/proj.js';
-
 import {Map as MaplibreMap} from 'maplibre-gl';
-import type {FrameState} from 'ol/Map.js';
 import type {Options as LayerOptions} from 'ol/layer/Layer.js';
 import type {MapOptions} from 'maplibre-gl';
 import {EventsKey} from 'ol/events';
@@ -12,6 +8,7 @@ import MaplibreLayerRenderer from './MaplibreLayerRenderer';
 import {unByKey} from 'ol/Observable';
 import {Source} from 'ol/source';
 import getMaplibreAttributions from './getMaplibreAttributions';
+import {Map} from 'ol';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
@@ -50,7 +47,6 @@ export default class MapLibreLayer extends Layer {
     super.disposeInternal();
   }
 
-  // @ts-expect-error - this is a mixin
   override setMapInternal(map: Map) {
     super.setMapInternal(map);
     if (map) {
@@ -61,12 +57,8 @@ export default class MapLibreLayer extends Layer {
     }
   }
 
-  /**
-   * Load the Maplibre map.
-   * @private
-   */
   private loadMaplibreMap() {
-    // this.loaded = false;
+    this.loaded = false;
     const map = this.getMapInternal();
     if (map) {
       this.olListenersKeys.push(

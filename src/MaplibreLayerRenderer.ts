@@ -9,12 +9,10 @@ import {Feature} from 'ol';
 import {Geometry, SimpleGeometry} from 'ol/geom';
 import {Pixel} from 'ol/pixel';
 import MapLibreLayer from './ol-maplibre-layer';
+import {MapGeoJSONFeature} from 'maplibre-gl';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
-/**
- * @private
- */
 const formats: {
   [key: string]: GeoJSON;
 } = {
@@ -26,78 +24,32 @@ const formats: {
 /**
  * This class is a renderer for Maplibre Layer to be able to use the native ol
  * functionnalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
- * @private
  */
 export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
   getFeaturesAtCoordinate(
     coordinate: Coordinate | undefined,
     hitTolerance: number = 5,
   ): Feature<Geometry>[] {
-    if (!coordinate) {
+    const pixels = this.getMaplibrePixels(coordinate, hitTolerance);
+
+    if (!pixels) {
       return [];
     }
 
-    const layer = this.getLayer();
-    const map = layer.getMapInternal();
-    const {maplibreMap} = layer;
+    const queryRenderedFeaturesOptions =
+      (this.getLayer().get(
+        'queryRenderedFeaturesOptions',
+      ) as maplibregl.QueryRenderedFeaturesOptions) || {};
 
-    const projection =
-      map?.getView()?.getProjection()?.getCode() || 'EPSG:3857';
-    let features: Feature[] = [];
+    // At this point we get GeoJSON Maplibre feature, we transform it to an OpenLayers
+    // feature to be consistent with other layers.
+    const features = this.getLayer()
+      .maplibreMap?.queryRenderedFeatures(pixels, queryRenderedFeaturesOptions)
+      .map(this.toOlFeature.bind(this));
 
-    if (!formats[projection]) {
-      formats[projection] = new GeoJSON({
-        featureProjection: projection,
-      });
-    }
-
-    if (maplibreMap) {
-      //?.isStyleLoaded()) {
-      const pixel =
-        coordinate &&
-        maplibreMap.project(toLonLat(coordinate) as [number, number]);
-
-      if (pixel?.x && pixel?.y) {
-        let pixels: [[number, number], [number, number]] | [number, number] = [
-          pixel.x,
-          pixel.y,
-        ];
-
-        if (hitTolerance) {
-          const [x, y] = pixels as [number, number];
-          pixels = [
-            [x - hitTolerance, y - hitTolerance],
-            [x + hitTolerance, y + hitTolerance],
-          ];
-        }
-
-        const queryRenderedFeaturesOptions =
-          (layer.get(
-            'queryRenderedFeaturesOptions',
-          ) as maplibregl.QueryRenderedFeaturesOptions) || {};
-
-        // At this point we get GeoJSON Maplibre feature, we transform it to an OpenLayers
-        // feature to be consistent with other layers.
-        features = maplibreMap
-          .queryRenderedFeatures(pixels, queryRenderedFeaturesOptions)
-          .map((feature) => {
-            const olFeature = formats[projection].readFeature(
-              feature,
-            ) as Feature;
-            if (olFeature) {
-              // We save the original Maplibre feature to avoid losing informations
-              // potentially needed for other functionnality like highlighting
-              // (id, layer id, source, sourceLayer ...)
-              olFeature.set(VECTOR_TILE_FEATURE_PROPERTY, feature);
-            }
-            return olFeature;
-          });
-      }
-    }
-    return features;
+    return features || [];
   }
 
-  // eslint-disable-next-line class-methods-use-this
   override prepareFrame() {
     return true;
   }
@@ -140,7 +92,7 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   override getFeatures(pixel: Pixel) {
     const coordinate = this.getLayer()
-      ?.getMapInternal()
+      .getMapInternal()
       ?.getCoordinateFromPixel(pixel);
     return Promise.resolve(this.getFeaturesAtCoordinate(coordinate));
   }
@@ -159,6 +111,60 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       }
     });
     return features?.[0] as Feature;
+  }
+
+  private getMaplibrePixels(
+    coordinate?: Coordinate,
+    hitTolerance?: number,
+  ): [[number, number], [number, number]] | [number, number] | undefined {
+    if (!coordinate) {
+      return;
+    }
+
+    const pixel = this.getLayer().maplibreMap?.project(
+      toLonLat(coordinate) as [number, number],
+    );
+
+    if (pixel?.x === undefined || pixel?.y === undefined) {
+      return;
+    }
+
+    let pixels: [[number, number], [number, number]] | [number, number] = [
+      pixel.x,
+      pixel.y,
+    ];
+
+    if (hitTolerance) {
+      const [x, y] = pixels as [number, number];
+      pixels = [
+        [x - hitTolerance, y - hitTolerance],
+        [x + hitTolerance, y + hitTolerance],
+      ];
+    }
+    return pixels;
+  }
+
+  private toOlFeature(feature: MapGeoJSONFeature) {
+    const layer = this.getLayer();
+    const map = layer.getMapInternal();
+
+    const projection =
+      map?.getView()?.getProjection()?.getCode() || 'EPSG:3857';
+
+    if (!formats[projection]) {
+      formats[projection] = new GeoJSON({
+        featureProjection: projection,
+      });
+    }
+
+    const olFeature = formats[projection].readFeature(feature) as Feature;
+    if (olFeature) {
+      // We save the original Maplibre feature to avoid losing informations
+      // potentially needed for other functionnality like highlighting
+      // (id, layer id, source, sourceLayer ...)
+      olFeature.set(VECTOR_TILE_FEATURE_PROPERTY, feature, true);
+    }
+    return olFeature;
   }
 }
 

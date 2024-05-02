@@ -3,7 +3,6 @@ import removeDuplicate from './removeDuplicate';
 /**
  * Return the copyright a Maplibre map.
  * @param {maplibregl.Map} map A Maplibre map
- * @private
  */
 const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
   if (!map) {
@@ -38,7 +37,6 @@ const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
  * It removes also null, undefined or non string values.
  *
  * @param {array} array Array of values.
- * @private
  */
 const removeDuplicate = (array: any[]) => {
   const arrWithoutEmptyValues = array.filter(
