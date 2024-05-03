@@ -44,6 +44,7 @@ const removeDuplicate = (array: string[]): string[] => {
   const lowerCasesValues = arrWithoutEmptyValues.map((str) =>
     str.toLowerCase(),
   );
+  // Use of Set removes duplicates
   const uniqueLowerCaseValues = [...new Set(lowerCasesValues)] as string[];
   const uniqueValues = uniqueLowerCaseValues.map((uniqueStr) =>
     arrWithoutEmptyValues.find((str) => str.toLowerCase() === uniqueStr),

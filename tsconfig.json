@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "noEmit": true,
     "isolatedModules": true,
     "noImplicitAny": true,
@@ -8,6 +8,7 @@
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "noImplicitOverride": true
+    "noImplicitOverride": true,
+    "downlevelIteration": true
   }
 }
