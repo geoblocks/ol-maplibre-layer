@@ -1,5 +1,3 @@
-import removeDuplicate from './removeDuplicate';
-
 /**
  * Return the copyright a Maplibre map.
  * @param {maplibregl.Map} map A Maplibre map
@@ -38,17 +36,17 @@ const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
  *
  * @param {array} array Array of values.
  */
-const removeDuplicate = (array: any[]) => {
+const removeDuplicate = (array: string[]): string[] => {
   const arrWithoutEmptyValues = array.filter(
     (val) => val !== undefined && val !== null && val.trim && val.trim(),
   );
   const lowerCasesValues = arrWithoutEmptyValues.map((str) =>
     str.toLowerCase(),
   );
-  const uniqueLowerCaseValues = [...new Set(lowerCasesValues)];
+  const uniqueLowerCaseValues = [...new Set(lowerCasesValues)] as string[];
   const uniqueValues = uniqueLowerCaseValues.map((uniqueStr) =>
     arrWithoutEmptyValues.find((str) => str.toLowerCase() === uniqueStr),
-  );
+  ) as string[];
   return uniqueValues;
 };
 
