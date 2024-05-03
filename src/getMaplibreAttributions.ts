@@ -1,3 +1,5 @@
+import {Source} from 'maplibre-gl';
+
 /**
  * Return the copyright a Maplibre map.
  * @param {maplibregl.Map} map A Maplibre map
@@ -13,20 +15,21 @@ const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
   const {sourceCaches} = style;
   let copyrights: string[] = [];
 
-  Object.values(sourceCaches).forEach((value) => {
-    if (value.used as boolean) {
-      const source = value.getSource();
+  Object.values(sourceCaches).forEach(
+    (value: {used: boolean; getSource: () => Source}) => {
+      if (value.used) {
+        const source = value.getSource();
 
-      const attribution =
-        source.attribution || (source.options && source.options.attribution);
+        const attribution = source.attribution;
 
-      if (attribution) {
-        copyrights = copyrights.concat(
-          attribution.replace(/&copy;/g, '©').split(/(<a.*?<\/a>)/),
-        );
+        if (attribution) {
+          copyrights = copyrights.concat(
+            attribution.replace(/&copy;/g, '©').split(/(<a.*?<\/a>)/),
+          );
+        }
       }
-    }
-  });
+    },
+  );
 
   return removeDuplicate(copyrights);
 };
