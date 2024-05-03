@@ -45,7 +45,9 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     // feature to be consistent with other layers.
     const features = this.getLayer()
       .maplibreMap?.queryRenderedFeatures(pixels, queryRenderedFeaturesOptions)
-      .map(this.toOlFeature.bind(this));
+      .map((feature) => {
+        return this.toOlFeature(feature);
+      });
 
     return features || [];
   }
