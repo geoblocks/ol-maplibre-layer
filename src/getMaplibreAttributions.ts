@@ -18,9 +18,7 @@ const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
   Object.values(sourceCaches).forEach(
     (value: {used: boolean; getSource: () => Source}) => {
       if (value.used) {
-        const source = value.getSource();
-
-        const attribution = source.attribution;
+        const {attribution} = value.getSource();
 
         if (attribution) {
           copyrights = copyrights.concat(
