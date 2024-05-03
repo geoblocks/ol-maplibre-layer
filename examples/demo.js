@@ -3,6 +3,7 @@ import './style.css';
 
 import Map from 'ol/Map';
 import View from 'ol/View';
+import Source from 'ol/source/Source';
 import TileLayer from 'ol/layer/Tile';
 import {TileDebug} from 'ol/source';
 
@@ -15,6 +16,11 @@ window.map = new Map({
         style:
           'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
       },
+      source: new Source({
+        attributions: [
+          '<a href="https://www.geo.admin.ch/en/vector-tiles-service-available-services-and-data" target="_blank">© swisstopo</a>',
+        ],
+      }),
     }),
     new TileLayer({
       source: new TileDebug(),
