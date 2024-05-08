@@ -1,15 +1,17 @@
-import {FrameState} from 'ol/Map';
+import type {MapGeoJSONFeature} from 'maplibre-gl';
+import type {QueryRenderedFeaturesOptions } from 'maplibre-gl';
+import type {FrameState} from 'ol/Map';
 import {toDegrees} from 'ol/math';
 import {toLonLat} from 'ol/proj';
 import LayerRenderer from 'ol/renderer/Layer';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Coordinate} from 'ol/coordinate';
-import {FeatureCallback} from 'ol/renderer/vector';
-import {Feature} from 'ol';
-import {Geometry, SimpleGeometry} from 'ol/geom';
-import {Pixel} from 'ol/pixel';
-import MapLibreLayer from './ol-maplibre-layer';
-import {MapGeoJSONFeature} from 'maplibre-gl';
+import type {Coordinate} from 'ol/coordinate';
+import type {FeatureCallback} from 'ol/renderer/vector';
+import type {Feature} from 'ol';
+import type {Geometry} from 'ol/geom';
+import {SimpleGeometry} from 'ol/geom';
+import type {Pixel} from 'ol/pixel';
+import type MapLibreLayer from './ol-maplibre-layer';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
@@ -23,7 +25,7 @@ const formats: {
 
 /**
  * This class is a renderer for Maplibre Layer to be able to use the native ol
- * functionnalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
+ * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
 export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
   getFeaturesAtCoordinate(
@@ -39,7 +41,7 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     const queryRenderedFeaturesOptions =
       (this.getLayer().get(
         'queryRenderedFeaturesOptions',
-      ) as maplibregl.QueryRenderedFeaturesOptions) || {};
+      ) as QueryRenderedFeaturesOptions) || {};
 
     // At this point we get GeoJSON Maplibre feature, we transform it to an OpenLayers
     // feature to be consistent with other layers.
@@ -101,7 +103,7 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   override forEachFeatureAtCoordinate<Feature>(
     coordinate: Coordinate,
-    frameState: FrameState,
+    _frameState: FrameState,
     hitTolerance: number,
     callback: FeatureCallback<Feature>,
   ): Feature | undefined {
@@ -161,8 +163,8 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     const olFeature = formats[projection].readFeature(feature) as Feature;
     if (olFeature) {
-      // We save the original Maplibre feature to avoid losing informations
-      // potentially needed for other functionnality like highlighting
+      // We save the original Maplibre feature to avoid losing information
+      // potentially needed for others functionalities like highlighting
       // (id, layer id, source, sourceLayer ...)
       olFeature.set(VECTOR_TILE_FEATURE_PROPERTY, feature, true);
     }

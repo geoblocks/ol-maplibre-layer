@@ -1,10 +1,11 @@
-import {Source} from 'maplibre-gl';
+import type {Source} from 'maplibre-gl';
+import type {Map as MaplibreMap} from 'maplibre-gl';
 
 /**
  * Return the copyright a Maplibre map.
  * @param {maplibregl.Map} map A Maplibre map
  */
-const getMaplibreAttributions = (map: maplibregl.Map | undefined) => {
+const getMaplibreAttributions = (map: MaplibreMap | undefined) => {
   if (!map) {
     return [];
   }
@@ -46,10 +47,9 @@ const removeDuplicate = (array: string[]): string[] => {
   );
   // Use of Set removes duplicates
   const uniqueLowerCaseValues = [...new Set(lowerCasesValues)] as string[];
-  const uniqueValues = uniqueLowerCaseValues.map((uniqueStr) =>
+  return uniqueLowerCaseValues.map((uniqueStr) =>
     arrWithoutEmptyValues.find((str) => str.toLowerCase() === uniqueStr),
   ) as string[];
-  return uniqueValues;
 };
 
 export default getMaplibreAttributions;

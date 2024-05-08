@@ -1,20 +1,20 @@
-import Layer from 'ol/layer/Layer.js';
 import {Map as MaplibreMap} from 'maplibre-gl';
+import type {MapOptions, QueryRenderedFeaturesOptions } from 'maplibre-gl';
+import type {Map} from 'ol';
+import Layer from 'ol/layer/Layer.js';
 import type {Options as LayerOptions} from 'ol/layer/Layer.js';
-import type {MapOptions} from 'maplibre-gl';
-import {EventsKey} from 'ol/events';
+import type {EventsKey} from 'ol/events';
 import BaseEvent from 'ol/events/Event';
-import MaplibreLayerRenderer from './MaplibreLayerRenderer';
 import {unByKey} from 'ol/Observable';
 import {Source} from 'ol/source';
+import MaplibreLayerRenderer from './MaplibreLayerRenderer';
 import getMaplibreAttributions from './getMaplibreAttributions';
-import {Map} from 'ol';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
 export type MapLibreLayerOptions = LayerOptions & {
   maplibreOptions: MapLibreOptions;
-  queryRenderedFeaturesOptions?: maplibregl.QueryRenderedFeaturesOptions;
+  queryRenderedFeaturesOptions?: QueryRenderedFeaturesOptions;
 };
 
 export default class MapLibreLayer extends Layer {
@@ -39,7 +39,7 @@ export default class MapLibreLayer extends Layer {
     unByKey(this.olListenersKeys);
     this.loaded = false;
     if (this.maplibreMap) {
-      // Some asynchrone repaints are triggered even if the maplibreMap has been removed,
+      // Some asynchronous repaints are triggered even if the maplibreMap has been removed,
       // to avoid display of errors we set an empty function.
       this.maplibreMap.triggerRepaint = () => {};
       this.maplibreMap.remove();
