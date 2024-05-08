@@ -1,11 +1,11 @@
 import type {Source} from 'maplibre-gl';
-import type {Map as MaplibreMap} from 'maplibre-gl';
+import type {Map as MapLibreMap} from 'maplibre-gl';
 
 /**
- * Return the copyright a Maplibre map.
- * @param {maplibregl.Map} map A Maplibre map
+ * Return the copyright a MapLibre map.
+ * @param map A MapLibre map
  */
-const getMaplibreAttributions = (map: MaplibreMap | undefined) => {
+const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
   if (!map) {
     return [];
   }
@@ -38,7 +38,7 @@ const getMaplibreAttributions = (map: MaplibreMap | undefined) => {
  *
  * @param {array} array Array of values.
  */
-const removeDuplicate = (array: string[]): string[] => {
+export const removeDuplicate = (array: string[]): string[] => {
   const arrWithoutEmptyValues = array.filter(
     (val) => val !== undefined && val !== null && val.trim && val.trim(),
   );
@@ -52,4 +52,4 @@ const removeDuplicate = (array: string[]): string[] => {
   ) as string[];
 };
 
-export default getMaplibreAttributions;
+export default getMapLibreAttributions;

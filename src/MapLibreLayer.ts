@@ -1,4 +1,4 @@
-import {Map as MaplibreMap} from 'maplibre-gl';
+import {Map as MapLibreMap} from 'maplibre-gl';
 import type {MapOptions, QueryRenderedFeaturesOptions } from 'maplibre-gl';
 import type {Map} from 'ol';
 import Layer from 'ol/layer/Layer.js';
@@ -7,18 +7,18 @@ import type {EventsKey} from 'ol/events';
 import BaseEvent from 'ol/events/Event';
 import {unByKey} from 'ol/Observable';
 import {Source} from 'ol/source';
-import MaplibreLayerRenderer from './MaplibreLayerRenderer';
-import getMaplibreAttributions from './getMaplibreAttributions';
+import MapLibreLayerRenderer from './MapLibreLayerRenderer';
+import getMapLibreAttributions from './getMapLibreAttributions';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
 export type MapLibreLayerOptions = LayerOptions & {
-  maplibreOptions: MapLibreOptions;
+  mapLibreOptions: MapLibreOptions;
   queryRenderedFeaturesOptions?: QueryRenderedFeaturesOptions;
 };
 
 export default class MapLibreLayer extends Layer {
-  maplibreMap?: MaplibreMap;
+  mapLibreMap?: MapLibreMap;
 
   loaded: boolean = false;
 
@@ -28,7 +28,7 @@ export default class MapLibreLayer extends Layer {
     super({
       source: new Source({
         attributions: () => {
-          return getMaplibreAttributions(this.maplibreMap);
+          return getMapLibreAttributions(this.mapLibreMap);
         },
       }),
       ...options,
@@ -38,11 +38,11 @@ export default class MapLibreLayer extends Layer {
   override disposeInternal() {
     unByKey(this.olListenersKeys);
     this.loaded = false;
-    if (this.maplibreMap) {
-      // Some asynchronous repaints are triggered even if the maplibreMap has been removed,
+    if (this.mapLibreMap) {
+      // Some asynchronous repaints are triggered even if the MapLibreMap has been removed,
       // to avoid display of errors we set an empty function.
-      this.maplibreMap.triggerRepaint = () => {};
-      this.maplibreMap.remove();
+      this.mapLibreMap.triggerRepaint = () => {};
+      this.mapLibreMap.remove();
     }
     super.disposeInternal();
   }
@@ -50,19 +50,19 @@ export default class MapLibreLayer extends Layer {
   override setMapInternal(map: Map) {
     super.setMapInternal(map);
     if (map) {
-      this.loadMaplibreMap();
+      this.loadMapLibreMap();
     } else {
       // TODO: I'm not sure if it's the right call
       this.dispose();
     }
   }
 
-  private loadMaplibreMap() {
+  private loadMapLibreMap() {
     this.loaded = false;
     const map = this.getMapInternal();
     if (map) {
       this.olListenersKeys.push(
-        map.on('change:target', this.loadMaplibreMap.bind(this)),
+        map.on('change:target', this.loadMapLibreMap.bind(this)),
       );
     }
 
@@ -73,7 +73,7 @@ export default class MapLibreLayer extends Layer {
     if (!this.getVisible()) {
       // On next change of visibility we load the map
       this.olListenersKeys.push(
-        this.once('change:visible', this.loadMaplibreMap.bind(this)),
+        this.once('change:visible', this.loadMapLibreMap.bind(this)),
       );
       return;
     }
@@ -83,10 +83,10 @@ export default class MapLibreLayer extends Layer {
     container.style.width = '100%';
     container.style.height = '100%';
 
-    const maplibreOptions = this.get('maplibreOptions') as MapLibreOptions;
+    const mapLibreOptions = this.get('mapLibreOptions') as MapLibreOptions;
 
-    this.maplibreMap = new MaplibreMap(
-      Object.assign({}, maplibreOptions, {
+    this.mapLibreMap = new MapLibreMap(
+      Object.assign({}, mapLibreOptions, {
         container: container,
         attributionControl: false,
         interactive: false,
@@ -94,17 +94,17 @@ export default class MapLibreLayer extends Layer {
       }),
     );
 
-    this.maplibreMap.on('sourcedata', () => {
+    this.mapLibreMap.on('sourcedata', () => {
       this.getSource()?.refresh(); // Refresh attribution
     });
 
-    this.maplibreMap.once('load', () => {
+    this.mapLibreMap.once('load', () => {
       this.loaded = true;
       this.dispatchEvent(new BaseEvent('load'));
     });
   }
 
-  override createRenderer() {
-    return new MaplibreLayerRenderer(this);
+  override createRenderer(): MapLibreLayerRenderer {
+    return new MapLibreLayerRenderer(this);
   }
 }

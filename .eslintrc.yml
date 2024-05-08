@@ -1,21 +1,15 @@
-env:
-  browser: true
-  es6: true
-plugins:
-  - '@typescript-eslint'
 extends:
-  - eslint:recommended
-  - plugin:@typescript-eslint/recommended
-  - prettier
+- 'eslint:recommended'
+- 'plugin:@typescript-eslint/recommended'
 parser: '@typescript-eslint/parser'
-parserOptions:
-  ecmaVersion: 2018
-  sourceType: module
+plugins:
+- '@typescript-eslint'
+root: true
 rules:
-  eqeqeq: error
-  no-duplicate-imports: 'off'
-  no-unused-vars: [error, {vars: all, args: none}]
-  no-var: error
-  object-shorthand: [error, consistent]
-  prefer-arrow-callback: error
-  prefer-const: error
+  no-console: 0
+  comma-dangle: 0
+  '@typescript-eslint/ban-ts-comment': 0
+  '@typescript-eslint/no-explicit-any': 0
+env:
+  es6: true
+  browser: true

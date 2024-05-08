@@ -7,12 +7,12 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import {TileDebug} from 'ol/source';
 
-import MapLibreLayer from '../src/ol-maplibre-layer';
+import {MapLibreLayer} from '../src/index';
 
 window.map = new Map({
   layers: [
     new MapLibreLayer({
-      maplibreOptions: {
+      mapLibreOptions: {
         style:
           'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
       },
