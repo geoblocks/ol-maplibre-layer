@@ -32,3 +32,10 @@ window.map = new Map({
     zoom: 8,
   }),
 });
+
+window.map.on('singleclick', (evt) => {
+  const features = window.map.getFeaturesAtPixel(evt.pixel);
+  features.forEach((feature) => {
+    console.log(feature);
+  });
+});
