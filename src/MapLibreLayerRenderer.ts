@@ -1,15 +1,17 @@
-import {FrameState} from 'ol/Map';
+import type {MapGeoJSONFeature} from 'maplibre-gl';
+import type {QueryRenderedFeaturesOptions } from 'maplibre-gl';
+import type {FrameState} from 'ol/Map';
 import {toDegrees} from 'ol/math';
 import {toLonLat} from 'ol/proj';
 import LayerRenderer from 'ol/renderer/Layer';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Coordinate} from 'ol/coordinate';
-import {FeatureCallback} from 'ol/renderer/vector';
-import {Feature} from 'ol';
-import {Geometry, SimpleGeometry} from 'ol/geom';
-import {Pixel} from 'ol/pixel';
-import MapLibreLayer from './ol-maplibre-layer';
-import {MapGeoJSONFeature} from 'maplibre-gl';
+import type {Coordinate} from 'ol/coordinate';
+import type {FeatureCallback} from 'ol/renderer/vector';
+import type {Feature} from 'ol';
+import type {Geometry} from 'ol/geom';
+import {SimpleGeometry} from 'ol/geom';
+import type {Pixel} from 'ol/pixel';
+import type MapLibreLayer from './MapLibreLayer';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
@@ -22,15 +24,15 @@ const formats: {
 };
 
 /**
- * This class is a renderer for Maplibre Layer to be able to use the native ol
- * functionnalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
+ * This class is a renderer for MapLibre Layer to be able to use the native ol
+ * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
-export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
+export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
   getFeaturesAtCoordinate(
     coordinate: Coordinate | undefined,
     hitTolerance: number = 5,
   ): Feature<Geometry>[] {
-    const pixels = this.getMaplibrePixels(coordinate, hitTolerance);
+    const pixels = this.getMapLibrePixels(coordinate, hitTolerance);
 
     if (!pixels) {
       return [];
@@ -39,12 +41,12 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     const queryRenderedFeaturesOptions =
       (this.getLayer().get(
         'queryRenderedFeaturesOptions',
-      ) as maplibregl.QueryRenderedFeaturesOptions) || {};
+      ) as QueryRenderedFeaturesOptions) || {};
 
-    // At this point we get GeoJSON Maplibre feature, we transform it to an OpenLayers
+    // At this point we get GeoJSON MapLibre feature, we transform it to an OpenLayers
     // feature to be consistent with other layers.
     const features = this.getLayer()
-      .maplibreMap?.queryRenderedFeatures(pixels, queryRenderedFeaturesOptions)
+      .mapLibreMap?.queryRenderedFeatures(pixels, queryRenderedFeaturesOptions)
       .map((feature) => {
         return this.toOlFeature(feature);
       });
@@ -52,47 +54,47 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     return features || [];
   }
 
-  override prepareFrame() {
+  override prepareFrame(): boolean {
     return true;
   }
 
-  override renderFrame(frameState: FrameState) {
+  override renderFrame(frameState: FrameState): HTMLElement {
     const layer = this.getLayer();
-    const {maplibreMap} = layer;
+    const {mapLibreMap} = layer;
     const map = layer.getMapInternal();
-    if (!layer || !map || !maplibreMap) {
+    if (!layer || !map || !mapLibreMap) {
       return null;
     }
 
-    const maplibreCanvas = maplibreMap.getCanvas();
+    const mapLibreCanvas = mapLibreMap.getCanvas();
     const {viewState} = frameState;
 
-    // adjust view parameters in Maplibre
-    maplibreMap.jumpTo({
+    // adjust view parameters in MapLibre
+    mapLibreMap.jumpTo({
       center: toLonLat(viewState.center) as [number, number],
       zoom: viewState.zoom - 1,
       bearing: toDegrees(-viewState.rotation),
     });
 
     const opacity = layer.getOpacity().toString();
-    if (maplibreCanvas && opacity !== maplibreCanvas.style.opacity) {
-      maplibreCanvas.style.opacity = opacity;
+    if (mapLibreCanvas && opacity !== mapLibreCanvas.style.opacity) {
+      mapLibreCanvas.style.opacity = opacity;
     }
 
-    if (!maplibreCanvas.isConnected) {
+    if (!mapLibreCanvas.isConnected) {
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
       map.render();
-    } else if (!sameSize(maplibreCanvas, frameState)) {
-      maplibreMap.resize();
+    } else if (!sameSize(mapLibreCanvas, frameState)) {
+      mapLibreMap.resize();
     }
 
-    maplibreMap.redraw();
+    mapLibreMap.redraw();
 
-    return maplibreMap.getContainer();
+    return mapLibreMap.getContainer();
   }
 
-  override getFeatures(pixel: Pixel) {
+  override getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]> {
     const coordinate = this.getLayer()
       .getMapInternal()
       ?.getCoordinateFromPixel(pixel);
@@ -101,7 +103,7 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   override forEachFeatureAtCoordinate<Feature>(
     coordinate: Coordinate,
-    frameState: FrameState,
+    _frameState: FrameState,
     hitTolerance: number,
     callback: FeatureCallback<Feature>,
   ): Feature | undefined {
@@ -115,20 +117,20 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     return features?.[0] as Feature;
   }
 
-  private getMaplibrePixels(
+  private getMapLibrePixels(
     coordinate?: Coordinate,
     hitTolerance?: number,
   ): [[number, number], [number, number]] | [number, number] | undefined {
     if (!coordinate) {
-      return;
+      return undefined;
     }
 
-    const pixel = this.getLayer().maplibreMap?.project(
+    const pixel = this.getLayer().mapLibreMap?.project(
       toLonLat(coordinate) as [number, number],
     );
 
     if (pixel?.x === undefined || pixel?.y === undefined) {
-      return;
+      return undefined;
     }
 
     let pixels: [[number, number], [number, number]] | [number, number] = [
@@ -146,7 +148,7 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     return pixels;
   }
 
-  private toOlFeature(feature: MapGeoJSONFeature) {
+  private toOlFeature(feature: MapGeoJSONFeature): Feature<Geometry> {
     const layer = this.getLayer();
     const map = layer.getMapInternal();
 
@@ -161,8 +163,8 @@ export default class MaplibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     const olFeature = formats[projection].readFeature(feature) as Feature;
     if (olFeature) {
-      // We save the original Maplibre feature to avoid losing informations
-      // potentially needed for other functionnality like highlighting
+      // We save the original MapLibre feature to avoid losing information
+      // potentially needed for others functionalities like highlighting
       // (id, layer id, source, sourceLayer ...)
       olFeature.set(VECTOR_TILE_FEATURE_PROPERTY, feature, true);
     }

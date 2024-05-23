@@ -1,14 +1,38 @@
 {
   "compilerOptions": {
-    "lib": ["es2017", "dom"],
-    "noEmit": true,
-    "isolatedModules": true,
-    "noImplicitAny": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["es2023", "dom"],
+    "baseUrl": "./",
     "skipLibCheck": true,
-    "noImplicitOverride": true,
-    "downlevelIteration": true
+
+    "moduleResolution": "Node",
+    "outDir": "./lib",
+    "inlineSourceMap": true,
+
+     "declaration": true,
+     "declarationDir": "./lib/types",
+
+    "declarationMap": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "typeAcquisition": {
+    "enable": false
   }
 }
