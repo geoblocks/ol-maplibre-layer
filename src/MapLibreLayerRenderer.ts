@@ -1,17 +1,17 @@
 import type {MapGeoJSONFeature} from 'maplibre-gl';
-import type {QueryRenderedFeaturesOptions } from 'maplibre-gl';
-import type {FrameState} from 'ol/Map';
-import {toDegrees} from 'ol/math';
-import {toLonLat} from 'ol/proj';
-import LayerRenderer from 'ol/renderer/Layer';
-import GeoJSON from 'ol/format/GeoJSON';
-import type {Coordinate} from 'ol/coordinate';
-import type {FeatureCallback} from 'ol/renderer/vector';
+import type {QueryRenderedFeaturesOptions} from 'maplibre-gl';
+import type {FrameState} from 'ol/Map.js';
+import {toDegrees} from 'ol/math.js';
+import {toLonLat} from 'ol/proj.js';
+import LayerRenderer from 'ol/renderer/Layer.js';
+import GeoJSON from 'ol/format/GeoJSON.js';
+import type {Coordinate} from 'ol/coordinate.js';
+import type {FeatureCallback} from 'ol/renderer/vector.js';
 import type {Feature} from 'ol';
-import type {Geometry} from 'ol/geom';
-import {SimpleGeometry} from 'ol/geom';
-import type {Pixel} from 'ol/pixel';
-import type MapLibreLayer from './MapLibreLayer';
+import type {Geometry} from 'ol/geom.js';
+import {SimpleGeometry} from 'ol/geom.js';
+import type {Pixel} from 'ol/pixel.js';
+import type MapLibreLayer from './MapLibreLayer.js';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 

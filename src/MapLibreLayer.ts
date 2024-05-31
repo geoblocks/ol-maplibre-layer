@@ -1,14 +1,14 @@
 import {Map as MapLibreMap} from 'maplibre-gl';
-import type {MapOptions, QueryRenderedFeaturesOptions } from 'maplibre-gl';
+import type {MapOptions, QueryRenderedFeaturesOptions} from 'maplibre-gl';
 import type {Map} from 'ol';
 import Layer from 'ol/layer/Layer.js';
 import type {Options as LayerOptions} from 'ol/layer/Layer.js';
-import type {EventsKey} from 'ol/events';
-import BaseEvent from 'ol/events/Event';
-import {unByKey} from 'ol/Observable';
-import {Source} from 'ol/source';
-import MapLibreLayerRenderer from './MapLibreLayerRenderer';
-import getMapLibreAttributions from './getMapLibreAttributions';
+import type {EventsKey} from 'ol/events.js';
+import BaseEvent from 'ol/events/Event.js';
+import {unByKey} from 'ol/Observable.js';
+import {Source} from 'ol/source.js';
+import MapLibreLayerRenderer from './MapLibreLayerRenderer.js';
+import getMapLibreAttributions from './getMapLibreAttributions.js';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
