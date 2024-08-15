@@ -111,7 +111,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     features.forEach((feature) => {
       const geometry = feature.getGeometry();
       if (geometry instanceof SimpleGeometry) {
-        callback(feature, this.layer_, geometry);
+        callback(feature, this.getLayer(), geometry);
       }
     });
     return features?.[0] as Feature;
