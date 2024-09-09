@@ -39,8 +39,8 @@
   "devDependencies": {
     "@parcel/packager-ts": "2.12.0",
     "@parcel/transformer-typescript-types": "2.12.0",
-    "@typescript-eslint/eslint-plugin": "8.4.0",
-    "@typescript-eslint/parser": "8.4.0",
+    "@typescript-eslint/eslint-plugin": "8.5.0",
+    "@typescript-eslint/parser": "8.5.0",
     "eslint": "8.57.0",
     "eslint-config-prettier": "9.1.0",
     "gh-pages": "6.1.1",
@@ -49,6 +49,6 @@
     "parcel": "2.12.0",
     "prettier": "3.3.3",
     "typedoc": "0.26.7",
-    "typescript": "5.5.4"
+    "typescript": "5.6.2"
   }
 }
