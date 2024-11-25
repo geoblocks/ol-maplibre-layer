@@ -17,7 +17,7 @@ npm i ol maplibre-gl
 ## Code example
 
 ```js
-import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
+import {MapLibreLayer} from '@geoblocks/ol-maplibre-layer';
 
 const layer = new MapLibreLayer({
   opacity: 0.7,
