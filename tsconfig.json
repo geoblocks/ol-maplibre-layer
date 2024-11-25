@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "es2022",
     "module": "nodenext",
-    "lib": ["es2023", "dom"],
+    "lib": ["es2022", "dom"],
     "baseUrl": "./",
     "skipLibCheck": true,
 
-    "moduleResolution": "nodenext",
     "outDir": "./lib",
     "inlineSourceMap": true,
 
-     "declaration": true,
-     "declarationDir": "./lib/types",
+    "declaration": true,
 
     "declarationMap": true,
     "forceConsistentCasingInFileNames": true,
@@ -29,9 +27,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
+  "include": ["src/**/*.ts"],
   "typeAcquisition": {
     "enable": false
   }
