@@ -12,6 +12,7 @@ import type {Geometry} from 'ol/geom.js';
 import {SimpleGeometry} from 'ol/geom.js';
 import type {Pixel} from 'ol/pixel.js';
 import type MapLibreLayer from './MapLibreLayer.js';
+import type { MapLibreLayerTranslateZoomFunction } from './MapLibreLayer.js'
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
@@ -28,6 +29,13 @@ const formats: {
  * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
 export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
+  private readonly translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+
+  constructor(layer: MapLibreLayer, translateZoom: MapLibreLayerTranslateZoomFunction | undefined) {
+    super(layer)
+    this.translateZoom = translateZoom
+  }
+
   getFeaturesAtCoordinate(
     coordinate: Coordinate | undefined,
     hitTolerance: number = 5,
@@ -71,8 +79,8 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     // adjust view parameters in MapLibre
     mapLibreMap.jumpTo({
-      center: toLonLat(viewState.center) as [number, number],
-      zoom: viewState.zoom - 1,
+      center: toLonLat(viewState.center, viewState.projection) as [number, number],
+      zoom: (this.translateZoom ? this.translateZoom(viewState.zoom) : viewState.zoom) - 1 ,
       bearing: toDegrees(-viewState.rotation),
     });
 
