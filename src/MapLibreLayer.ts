@@ -12,9 +12,20 @@ import getMapLibreAttributions from './getMapLibreAttributions.js';
 
 export type MapLibreOptions = Omit<MapOptions, 'container'>;
 
+/**
+ * Receives the zoom level from the OpenLayers view
+ * and can transform it for MapLibre in case the projection
+ * system used by OL isn't using a standard Mercator pyramid.
+ *
+ * This enables the MapLibreLayer to work in Mercator zooms even if OL
+ * is using a localized projection (such as LV95 for Switzerland)
+ */
+export type MapLibreLayerTranslateZoomFunction = (zoom: number) => number;
+
 export type MapLibreLayerOptions = LayerOptions & {
   mapLibreOptions: MapLibreOptions;
   queryRenderedFeaturesOptions?: QueryRenderedFeaturesOptions;
+  translateZoom?: MapLibreLayerTranslateZoomFunction
 };
 
 export default class MapLibreLayer extends Layer {
@@ -105,6 +116,7 @@ export default class MapLibreLayer extends Layer {
   }
 
   override createRenderer(): MapLibreLayerRenderer {
-    return new MapLibreLayerRenderer(this);
+    const translateZoom = this.get('translateZoom') as MapLibreLayerTranslateZoomFunction | undefined;
+    return new MapLibreLayerRenderer(this, translateZoom);
   }
 }
