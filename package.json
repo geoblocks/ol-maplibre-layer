@@ -14,7 +14,7 @@
     "CHANGES.md"
   ],
   "module": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "types": "lib/index.d.ts",
   "targets": {
     "demo": {
       "source": "examples/demo.html",
