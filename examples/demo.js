@@ -33,6 +33,10 @@ window.map = new Map({
   }),
 });
 
+window.map.on('rendercomplete', () => {
+  console.log('rendercomplete');
+});
+
 window.map.on('singleclick', (evt) => {
   const features = window.map.getFeaturesAtPixel(evt.pixel);
   features.forEach((feature) => {
