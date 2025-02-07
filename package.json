@@ -44,7 +44,7 @@
     "@parcel/transformer-typescript-types": "2.13.3",
     "@typescript-eslint/eslint-plugin": "8.19.1",
     "@typescript-eslint/parser": "8.19.1",
-    "eslint": "8.57.1",
+    "eslint": "9.20.0",
     "gh-pages": "6.3.0",
     "maplibre-gl": "4.7.1",
     "ol": "10.3.1",
