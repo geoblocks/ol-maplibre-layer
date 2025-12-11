@@ -1,4 +1,4 @@
-import type {Source} from 'maplibre-gl';
+import type {Source, Style} from 'maplibre-gl';
 import type {Map as MapLibreMap} from 'maplibre-gl';
 
 /**
@@ -13,10 +13,11 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
   if (!style) {
     return [];
   }
-  const {sourceCaches} = style;
+  // @ts-expect-error -  sourceCaches exists in maplibre-gl < 5.11.0
+  const {sourceCaches, tileManagers} = style;
   let copyrights: string[] = [];
-
-  Object.values(sourceCaches).forEach(
+  const caches: Style['tileManagers'] = tileManagers || sourceCaches || {};
+  Object.values(caches).forEach(
     (value: {used: boolean; getSource: () => Source}) => {
       if (value.used) {
         const {attribution} = value.getSource();
@@ -27,7 +28,7 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
           );
         }
       }
-    },
+    }
   );
 
   return removeDuplicate(copyrights);
@@ -40,7 +41,7 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
  */
 export const removeDuplicate = (array: string[]): string[] => {
   const arrWithoutEmptyValues = array.filter(
-    (val) => val !== undefined && val !== null && val.trim && val.trim(),
+    (val) => val !== undefined && val !== null && val.trim && val.trim()
   );
   const lowerCasesValues = arrWithoutEmptyValues.map((str) =>
     str.toLowerCase(),
