@@ -12,7 +12,7 @@ import type {Geometry} from 'ol/geom.js';
 import {SimpleGeometry} from 'ol/geom.js';
 import type {Pixel} from 'ol/pixel.js';
 import type MapLibreLayer from './MapLibreLayer.js';
-import type { MapLibreLayerTranslateZoomFunction } from './MapLibreLayer.js'
+import type {MapLibreLayerTranslateZoomFunction} from './MapLibreLayer.js';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
@@ -29,16 +29,26 @@ const formats: {
  * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
 export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
-  private readonly translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+  private readonly translateZoom:
+    | MapLibreLayerTranslateZoomFunction
+    | undefined;
 
-  constructor(layer: MapLibreLayer, translateZoom: MapLibreLayerTranslateZoomFunction | undefined) {
-    super(layer)
-    this.translateZoom = translateZoom
+  private ignoreNextRender: boolean;
+
+  constructor(
+    layer: MapLibreLayer,
+    translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+  ) {
+    super(layer);
+    this.translateZoom = translateZoom;
+
+    this.setIsReady = this.setIsReady.bind(this);
+    this.ignoreNextRender = false;
   }
 
   getFeaturesAtCoordinate(
     coordinate: Coordinate | undefined,
-    hitTolerance: number = 5,
+    hitTolerance: number = 5
   ): Feature<Geometry>[] {
     const pixels = this.getMapLibrePixels(coordinate, hitTolerance);
 
@@ -48,7 +58,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     const queryRenderedFeaturesOptions =
       (this.getLayer().get(
-        'queryRenderedFeaturesOptions',
+        'queryRenderedFeaturesOptions'
       ) as QueryRenderedFeaturesOptions) || {};
 
     // At this point we get GeoJSON MapLibre feature, we transform it to an OpenLayers
@@ -74,13 +84,27 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       return null;
     }
 
+    if (this.ready && this.ignoreNextRender) {
+      this.ignoreNextRender = false;
+      return mapLibreMap?.getContainer();
+    }
+    this.ready = false;
+    this.ignoreNextRender = false;
+    this.updateReadyState();
+
     const mapLibreCanvas = mapLibreMap.getCanvas();
     const {viewState} = frameState;
 
     // adjust view parameters in MapLibre
     mapLibreMap.jumpTo({
-      center: toLonLat(viewState.center, viewState.projection) as [number, number],
-      zoom: (this.translateZoom ? this.translateZoom(viewState.zoom) : viewState.zoom) - 1 ,
+      center: toLonLat(viewState.center, viewState.projection) as [
+        number,
+        number
+      ],
+      zoom:
+        (this.translateZoom
+          ? this.translateZoom(viewState.zoom)
+          : viewState.zoom) - 1,
       bearing: toDegrees(-viewState.rotation),
     });
 
@@ -99,7 +123,12 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     mapLibreMap.redraw();
 
-    return mapLibreMap.getContainer();
+    const container = mapLibreMap.getContainer();
+
+    // Mark the renderer as ready when the map is idle
+    mapLibreMap?.once('idle', this.setIsReady);
+
+    return container;
   }
 
   override getFeatures(pixel: Pixel): Promise<Feature<Geometry>[]> {
@@ -113,7 +142,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     coordinate: Coordinate,
     _frameState: FrameState,
     hitTolerance: number,
-    callback: FeatureCallback<Feature>,
+    callback: FeatureCallback<Feature>
   ): Feature | undefined {
     const features = this.getFeaturesAtCoordinate(coordinate, hitTolerance);
     let result;
@@ -131,14 +160,14 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   private getMapLibrePixels(
     coordinate?: Coordinate,
-    hitTolerance?: number,
+    hitTolerance?: number
   ): [[number, number], [number, number]] | [number, number] | undefined {
     if (!coordinate) {
       return undefined;
     }
 
     const pixel = this.getLayer().mapLibreMap?.project(
-      toLonLat(coordinate) as [number, number],
+      toLonLat(coordinate) as [number, number]
     );
 
     if (pixel?.x === undefined || pixel?.y === undefined) {
@@ -181,6 +210,19 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       olFeature.set(VECTOR_TILE_FEATURE_PROPERTY, feature, true);
     }
     return olFeature;
+  }
+
+  setIsReady() {
+    if (!this.ready) {
+      this.ready = true;
+      this.ignoreNextRender = true;
+      this.getLayer().changed();
+    }
+  }
+
+  updateReadyState() {
+    this.getLayer()?.mapLibreMap?.off('idle', this.setIsReady);
+    this.getLayer()?.mapLibreMap?.once('idle', this.setIsReady);
   }
 }
 
