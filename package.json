@@ -42,8 +42,8 @@
   "devDependencies": {
     "@parcel/packager-ts": "2.16.3",
     "@parcel/transformer-typescript-types": "2.16.3",
-    "@typescript-eslint/eslint-plugin": "8.49.0",
-    "@typescript-eslint/parser": "8.49.0",
+    "@typescript-eslint/eslint-plugin": "8.52.0",
+    "@typescript-eslint/parser": "8.52.0",
     "eslint": "8.57.1",
     "gh-pages": "6.3.0",
     "maplibre-gl": "4.7.1",
