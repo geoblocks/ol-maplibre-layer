@@ -14,7 +14,7 @@ window.map = new Map({
     new MapLibreLayer({
       mapLibreOptions: {
         style:
-          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte_world.vt/style.json',
+          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.lightbasemap.vt/style.json',
       },
       source: new Source({
         attributions: [
