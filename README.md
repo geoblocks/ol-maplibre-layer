@@ -1,6 +1,6 @@
 # MapLibre OpenLayers layer
 
-Render a [MapLibre GL JS](https://maplibre.org/projects/#js) map as an [OpenLayers](https://openlayers.org/) layer.
+Render a [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/) map as an [OpenLayers](https://openlayers.org/) layer.
 
 ## Installation
 
@@ -31,7 +31,7 @@ map.addLayer(layer);
 ```
 
 All the properties passed to the construction (except `mapLibreOptions`) are used to create the [OpenLayers layer](https://openlayers.org/en/latest/apidoc/module-ol_layer_Layer-Layer.html).
-`mapLibreOptions` is used to create the [MapLibre map](https://maplibre.org/maplibre-gl-js-docs/api/map/).
+`mapLibreOptions` is used to create the [MapLibre map](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/).
 
 The MapLibreLayer exposes the underlying MapLibre map as public property, so you can use it to interact with the map.
 
