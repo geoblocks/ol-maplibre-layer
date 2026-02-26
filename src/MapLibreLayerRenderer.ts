@@ -116,13 +116,17 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     callback: FeatureCallback<Feature>,
   ): Feature | undefined {
     const features = this.getFeaturesAtCoordinate(coordinate, hitTolerance);
-    features.forEach((feature) => {
+    let result;
+    for (const feature of features) {
       const geometry = feature.getGeometry();
       if (geometry instanceof SimpleGeometry) {
-        callback(feature, this.getLayer(), geometry);
+        result = callback(feature, this.getLayer(), geometry);
+        if (result) {
+          return result;
+        }
       }
-    });
-    return features?.[0] as Feature;
+    }
+    return result;
   }
 
   private getMapLibrePixels(
