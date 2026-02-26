@@ -1,4 +1,4 @@
-import type {Source, Style} from 'maplibre-gl';
+import type {Source} from 'maplibre-gl';
 import type {Map as MapLibreMap} from 'maplibre-gl';
 
 /**
