@@ -13,10 +13,10 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
   if (!style) {
     return [];
   }
-  // @ts-expect-error -  sourceCaches exists in maplibre-gl < 5.11.0
+  // @ts-expect-error -  sourceCaches exists in maplibre-gl < 5.11.0 and tileManagers in maplibre-gl >= 5.11.0
   const {sourceCaches, tileManagers} = style;
   let copyrights: string[] = [];
-  const caches: Style['tileManagers'] = tileManagers || sourceCaches || {};
+  const caches: Record<string, {used: boolean; getSource: () => Source}> = tileManagers || sourceCaches || {};
   Object.values(caches).forEach(
     (value: {used: boolean; getSource: () => Source}) => {
       if (value.used) {
