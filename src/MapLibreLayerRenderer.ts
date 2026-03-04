@@ -56,7 +56,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   getFeaturesAtCoordinate(
     coordinate: Coordinate | undefined,
-    hitTolerance: number = 5
+    hitTolerance: number = 5,
   ): Feature<Geometry>[] {
     const pixels = this.getMapLibrePixels(coordinate, hitTolerance);
 
@@ -66,7 +66,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     const queryRenderedFeaturesOptions =
       (this.getLayer().get(
-        'queryRenderedFeaturesOptions'
+        'queryRenderedFeaturesOptions',
       ) as QueryRenderedFeaturesOptions) || {};
 
     // At this point we get GeoJSON MapLibre feature, we transform it to an OpenLayers
@@ -111,14 +111,8 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
     // adjust view parameters in MapLibre
     mapLibreMap.jumpTo({
-      center: toLonLat(viewState.center, viewState.projection) as [
-        number,
-        number
-      ],
-      zoom:
-        (this.translateZoom
-          ? this.translateZoom(viewState.zoom)
-          : viewState.zoom) - 1,
+      center: toLonLat(viewState.center, viewState.projection) as [number, number],
+      zoom: (this.translateZoom ? this.translateZoom(viewState.zoom) : viewState.zoom) - 1,
       bearing: toDegrees(-viewState.rotation),
     });
 
@@ -172,14 +166,14 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
 
   private getMapLibrePixels(
     coordinate?: Coordinate,
-    hitTolerance?: number
+    hitTolerance?: number,
   ): [[number, number], [number, number]] | [number, number] | undefined {
     if (!coordinate) {
       return undefined;
     }
 
     const pixel = this.getLayer().mapLibreMap?.project(
-      toLonLat(coordinate) as [number, number]
+      toLonLat(coordinate) as [number, number],
     );
 
     if (pixel?.x === undefined || pixel?.y === undefined) {
