@@ -127,6 +127,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       mapLibreCanvas.style.opacity = opacity;
     }
 
+
     if (!mapLibreCanvas.isConnected) {
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
@@ -135,9 +136,9 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       mapLibreMap.resize();
     }
 
-    mapLibreMap.redraw();
-
     mapLibreMap.once('idle', this.setIsReady);
+
+    mapLibreMap.redraw();
 
     return mapLibreMap.getContainer();
   }
