@@ -6,14 +6,21 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileDebug from 'ol/source/TileDebug';
 
-import {MapLibreLayer} from '../src/index';
+import { MapLibreLayer } from '../src/index';
+import { Source } from 'ol/source';
 
 window.map = new Map({
   layers: [
     new MapLibreLayer({
       mapLibreOptions: {
-        style: 'https://tiles.openfreemap.org/styles/bright',
+        style:
+          'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.lightbasemap.vt/style.json',
       },
+      source: new Source({
+        attributions: [
+          '<a href="https://www.geo.admin.ch/en/vector-tiles-service-available-services-and-data" target="_blank">© swisstopo</a>',
+        ],
+      }),
     }),
     new TileLayer({
       source: new TileDebug(),
