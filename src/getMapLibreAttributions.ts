@@ -28,7 +28,7 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
           );
         }
       }
-    }
+    },
   );
 
   return removeDuplicate(copyrights);
@@ -41,7 +41,7 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
  */
 export const removeDuplicate = (array: string[]): string[] => {
   const arrWithoutEmptyValues = array.filter(
-    (val) => val !== undefined && val !== null && val.trim && val.trim()
+    (val) => val !== undefined && val !== null && val.trim && val.trim(),
   );
   const lowerCasesValues = arrWithoutEmptyValues.map((str) =>
     str.toLowerCase(),
