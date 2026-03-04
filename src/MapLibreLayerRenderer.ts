@@ -1,4 +1,4 @@
-import type {MapGeoJSONFeature} from 'maplibre-gl';
+import type {Map, MapGeoJSONFeature} from 'maplibre-gl';
 import type {QueryRenderedFeaturesOptions} from 'maplibre-gl';
 import type {FrameState} from 'ol/Map.js';
 import {toDegrees} from 'ol/math.js';
@@ -12,7 +12,7 @@ import type {Geometry} from 'ol/geom.js';
 import {SimpleGeometry} from 'ol/geom.js';
 import type {Pixel} from 'ol/pixel.js';
 import type MapLibreLayer from './MapLibreLayer.js';
-import type { MapLibreLayerTranslateZoomFunction } from './MapLibreLayer.js'
+import type {MapLibreLayerTranslateZoomFunction} from './MapLibreLayer.js';
 
 const VECTOR_TILE_FEATURE_PROPERTY = 'vectorTileFeature';
 
@@ -24,16 +24,34 @@ const formats: {
   }),
 };
 
+
+function sameSize(map: Map, frameState: FrameState): boolean {
+  return (
+    map.transform.width === Math.floor(frameState.size[0]) &&
+    map.transform.height === Math.floor(frameState.size[1])
+  );
+}
+
+
 /**
  * This class is a renderer for MapLibre Layer to be able to use the native ol
  * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
 export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
-  private readonly translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+  readonly translateZoom:
+    | MapLibreLayerTranslateZoomFunction
+    | undefined;
 
-  constructor(layer: MapLibreLayer, translateZoom: MapLibreLayerTranslateZoomFunction | undefined) {
-    super(layer)
-    this.translateZoom = translateZoom
+  ignoreNextRender: boolean;
+
+  constructor(
+    layer: MapLibreLayer,
+    translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+  ) {
+    super(layer);
+    this.translateZoom = translateZoom;
+    this.setIsReady = this.setIsReady.bind(this);
+    this.ignoreNextRender = false;
   }
 
   getFeaturesAtCoordinate(
@@ -70,17 +88,31 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     const layer = this.getLayer();
     const {mapLibreMap} = layer;
     const map = layer.getMapInternal();
+
     if (!layer || !map || !mapLibreMap) {
       return null;
     }
 
+    mapLibreMap.off('idle', this.setIsReady);
+
+
+    // When the browser is zoomed it could happens that the renderFrame call for readyness
+    // in setIsReady is called with a different size than the one of the mapLibreMap,
+    // so we need to render.
+    if (this.ready && this.ignoreNextRender && sameSize(mapLibreMap, frameState)) {
+      this.ignoreNextRender = false;
+      return mapLibreMap.getContainer();
+    }
+
+    this.ready = false;
+    this.ignoreNextRender = false;
     const mapLibreCanvas = mapLibreMap.getCanvas();
     const {viewState} = frameState;
 
     // adjust view parameters in MapLibre
     mapLibreMap.jumpTo({
       center: toLonLat(viewState.center, viewState.projection) as [number, number],
-      zoom: (this.translateZoom ? this.translateZoom(viewState.zoom) : viewState.zoom) - 1 ,
+      zoom: (this.translateZoom ? this.translateZoom(viewState.zoom) : viewState.zoom) - 1,
       bearing: toDegrees(-viewState.rotation),
     });
 
@@ -89,13 +121,16 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       mapLibreCanvas.style.opacity = opacity;
     }
 
+
     if (!mapLibreCanvas.isConnected) {
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
       map.render();
-    } else if (!sameSize(mapLibreCanvas, frameState)) {
+    } else if (!sameSize(mapLibreMap, frameState)) {
       mapLibreMap.resize();
     }
+
+    mapLibreMap.once('idle', this.setIsReady);
 
     mapLibreMap.redraw();
 
@@ -113,7 +148,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     coordinate: Coordinate,
     _frameState: FrameState,
     hitTolerance: number,
-    callback: FeatureCallback<Feature>,
+    callback: FeatureCallback<Feature>
   ): Feature | undefined {
     const features = this.getFeaturesAtCoordinate(coordinate, hitTolerance);
     let result;
@@ -182,11 +217,12 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
     }
     return olFeature;
   }
-}
 
-function sameSize(canvas: HTMLCanvasElement, frameState: FrameState): boolean {
-  return (
-    canvas.width === Math.floor(frameState.size[0] * frameState.pixelRatio) &&
-    canvas.height === Math.floor(frameState.size[1] * frameState.pixelRatio)
-  );
+  setIsReady() {
+    if (!this.ready) {
+      this.ready = true;
+      this.ignoreNextRender = true;
+      this.getLayer().changed();
+    }
+  }
 }
