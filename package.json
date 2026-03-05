@@ -40,16 +40,16 @@
     "ol": "^6 || ^7 || ^8 || ^9 || ^10"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "2.16.3",
-    "@parcel/transformer-typescript-types": "2.16.3",
-    "@typescript-eslint/eslint-plugin": "8.52.0",
-    "@typescript-eslint/parser": "8.52.0",
+    "@parcel/packager-ts": "2.16.4",
+    "@parcel/transformer-typescript-types": "2.16.4",
+    "@typescript-eslint/eslint-plugin": "8.56.1",
+    "@typescript-eslint/parser": "8.56.1",
     "eslint": "8.57.1",
     "gh-pages": "6.3.0",
     "maplibre-gl": "4.7.1",
-    "ol": "10.7.0",
-    "parcel": "2.16.3",
-    "typedoc": "0.28.15",
+    "ol": "10.8.0",
+    "parcel": "2.16.4",
+    "typedoc": "0.28.17",
     "typescript": "5.9.3"
   }
 }
