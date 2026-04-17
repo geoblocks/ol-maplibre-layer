@@ -50,6 +50,6 @@
     "ol": "10.7.0",
     "parcel": "2.16.3",
     "typedoc": "0.28.15",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
   }
 }
