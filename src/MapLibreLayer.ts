@@ -63,7 +63,6 @@ export default class MapLibreLayer extends Layer {
     if (map) {
       this.loadMapLibreMap();
     } else {
-      // TODO: I'm not sure if it's the right call
       this.dispose();
     }
   }

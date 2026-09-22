@@ -13,10 +13,10 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
   if (!style) {
     return [];
   }
-  const {sourceCaches} = style;
+  const {tileManagers} = style;
   let copyrights: string[] = [];
 
-  Object.values(sourceCaches).forEach(
+  Object.values(tileManagers).forEach(
     (value: {used: boolean; getSource: () => Source}) => {
       if (value.used) {
         const {attribution} = value.getSource();
@@ -34,7 +34,7 @@ const getMapLibreAttributions = (map: MapLibreMap | undefined): string[] => {
 };
 /**
  * This function remove duplicates lower case string value of an array.
- * It removes also null, undefined or non string values.
+ * It removes also null, undefined- or non-string values.
  *
  * @param {array} array Array of values.
  */
