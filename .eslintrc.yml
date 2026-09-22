@@ -5,6 +5,7 @@ parser: '@typescript-eslint/parser'
 plugins:
 - '@typescript-eslint'
 root: true
+ignorePatterns: ["examples/workers/**"]
 rules:
   no-console: 0
   comma-dangle: 0
