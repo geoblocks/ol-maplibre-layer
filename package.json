@@ -22,6 +22,9 @@
       "publicUrl": "./"
     }
   },
+  "@parcel/resolver-default": {
+    "packageExports": true
+  },
   "alias": {
     "buffer": false
   },
@@ -41,16 +44,18 @@
     "ol": "^6 || ^7 || ^8 || ^9 || ^10"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "2.16.3",
-    "@parcel/transformer-typescript-types": "2.16.3",
-    "@typescript-eslint/eslint-plugin": "8.52.0",
-    "@typescript-eslint/parser": "8.52.0",
-    "eslint": "8.57.1",
+    "@eslint/eslintrc": "^3.3.7",
+    "@eslint/js": "^10.0.1",
+    "@parcel/packager-ts": "^2.16.4",
+    "@parcel/transformer-typescript-types": "^2.16.4",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^10.11.0",
     "gh-pages": "6.3.0",
-    "maplibre-gl": "6.10.0",
-    "ol": "10.7.0",
-    "parcel": "2.16.3",
-    "typedoc": "0.28.15",
-    "typescript": "5.9.3"
+    "maplibre-gl": "6.11.0",
+    "ol": "^10.10.0",
+    "parcel": "^2.16.4",
+    "typedoc": "^0.28.20",
+    "typescript": "^6.0.3"
   }
 }

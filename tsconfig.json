@@ -3,10 +3,10 @@
     "target": "es2022",
     "module": "nodenext",
     "lib": ["es2022", "dom"],
-    "baseUrl": "./",
     "skipLibCheck": true,
 
-    "outDir": "./lib",
+    "rootDir": "./",
+    "outDir": "lib",
     "inlineSourceMap": true,
 
     "declaration": true,
