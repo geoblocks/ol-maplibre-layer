@@ -1,6 +1,6 @@
 {
   "name": "@geoblocks/ol-maplibre-layer",
-  "description": "Geoblocks to render a maplibre GL JS map as an OpenLayers layer.",
+  "description": "Geoblocks to render a MapLibre GL JS map as an OpenLayers layer.",
   "version": "1.0.3",
   "license": "BSD-3-Clause",
   "repository": "github:geoblocks/ol-maplibre-layer",
@@ -27,16 +27,17 @@
   },
   "scripts": {
     "eslint": "eslint src examples",
-    "start": "parcel serve examples/**/*.html",
-    "build": "parcel build --target demo",
+    "start": "npm run cp-workers && parcel serve examples/**/*.html",
+    "build": "npm run cp-workers && parcel build --target demo",
     "prepare": "tsc --pretty",
     "typecheck": "tsc --pretty --noEmit",
     "lint": "npm run eslint && npm run typecheck",
     "doc": "typedoc",
-    "gh-pages": "rm -rf dist && npm run doc && npm run build && gh-pages -d dist"
+    "gh-pages": "rm -rf dist && npm run doc && npm run build && gh-pages -d dist",
+    "cp-workers": "mkdir -p examples/workers && cp node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs examples/workers/maplibre-gl-worker.mjs && cp node_modules/maplibre-gl/dist/maplibre-gl-shared.mjs examples/workers/maplibre-gl-shared.mjs"
   },
   "peerDependencies": {
-    "maplibre-gl": ">=2.0.4",
+    "maplibre-gl": ">=5.11.0",
     "ol": "^6 || ^7 || ^8 || ^9 || ^10"
   },
   "devDependencies": {
@@ -46,7 +47,7 @@
     "@typescript-eslint/parser": "8.52.0",
     "eslint": "8.57.1",
     "gh-pages": "6.3.0",
-    "maplibre-gl": "4.7.1",
+    "maplibre-gl": "6.10.0",
     "ol": "10.7.0",
     "parcel": "2.16.3",
     "typedoc": "0.28.15",

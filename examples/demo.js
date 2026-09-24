@@ -7,7 +7,12 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import TileDebug from 'ol/source/TileDebug';
 
+import {setWorkerUrl} from 'maplibre-gl';
 import {MapLibreLayer} from '../src/index';
+
+// Needed by mapLibre-gl v6. See: https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/docs/index.md#installation
+// This resource is copied during the build.
+setWorkerUrl(new URL('./workers/maplibre-gl-worker.mjs', import.meta.url).toString());
 
 window.map = new Map({
   layers: [

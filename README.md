@@ -44,6 +44,10 @@ layer.maplibreMap.setStyle('https://www.example.com/path/to/other/style.json');
 - [Documentation](https://geoblocks.github.io/ol-maplibre-layer/api/);
 - [Demo](https://geoblocks.github.io/ol-maplibre-layer/demo.html);
 
+## Troubleshooting
+
+With MapLibre-GL v6, you have to set the worker manually, read the [MapLibre v6 installation](https://github.com/maplibre/maplibre-gl-js/blob/v6.0.0/docs/index.md#installation).
+
 ## Local development
 
 For local development we use a few demos.
