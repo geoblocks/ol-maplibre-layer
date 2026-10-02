@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^8.70.1",
     "eslint": "^10.11.0",
     "gh-pages": "6.3.0",
-    "maplibre-gl": "6.11.1",
+    "maplibre-gl": "6.11.2",
     "ol": "^10.10.0",
     "parcel": "^2.16.4",
     "typedoc": "^0.28.20",
