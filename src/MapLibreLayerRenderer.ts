@@ -1,4 +1,4 @@
-import type {MapGeoJSONFeature} from 'maplibre-gl';
+import type {Map, MapGeoJSONFeature} from 'maplibre-gl';
 import type {QueryRenderedFeaturesOptions} from 'maplibre-gl';
 import type {FrameState} from 'ol/Map.js';
 import {toDegrees} from 'ol/math.js';
@@ -29,7 +29,7 @@ const formats: {
  * functionalities like map.getFeaturesAtPixel or map.hasFeatureAtPixel.
  */
 export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> {
-  private readonly translateZoom: MapLibreLayerTranslateZoomFunction | undefined
+  readonly translateZoom: MapLibreLayerTranslateZoomFunction | undefined
 
   constructor(layer: MapLibreLayer, translateZoom: MapLibreLayerTranslateZoomFunction | undefined) {
     super(layer)
@@ -93,7 +93,7 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
       // The canvas is not connected to the DOM, request a map rendering at the next animation frame
       // to set the canvas size.
       map.render();
-    } else if (!sameSize(mapLibreCanvas, frameState)) {
+    } else if (!sameSize(mapLibreMap, frameState)) {
       mapLibreMap.resize();
     }
 
@@ -184,9 +184,9 @@ export default class MapLibreLayerRenderer extends LayerRenderer<MapLibreLayer> 
   }
 }
 
-function sameSize(canvas: HTMLCanvasElement, frameState: FrameState): boolean {
+function sameSize(map: Map, frameState: FrameState): boolean {
   return (
-    canvas.width === Math.floor(frameState.size[0] * frameState.pixelRatio) &&
-    canvas.height === Math.floor(frameState.size[1] * frameState.pixelRatio)
+    map.transform.width === Math.floor(frameState.size[0]) &&
+    map.transform.height === Math.floor(frameState.size[1])
   );
 }
