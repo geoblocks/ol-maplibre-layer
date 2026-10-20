@@ -37,7 +37,7 @@
     "lint": "npm run eslint && npm run typecheck",
     "doc": "typedoc",
     "gh-pages": "rm -rf dist && npm run doc && npm run build && gh-pages -d dist",
-    "cp-workers": "mkdir -p examples/workers && cp node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs examples/workers/maplibre-gl-worker.mjs && cp node_modules/maplibre-gl/dist/maplibre-gl-shared.mjs examples/workers/maplibre-gl-shared.mjs"
+    "cp-workers": "mkdir -p examples/workers && cp node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs examples/workers/maplibre-gl-worker.mjs"
   },
   "peerDependencies": {
     "maplibre-gl": ">=5.11.0",
@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "^8.70.1",
     "eslint": "^10.11.0",
     "gh-pages": "6.3.0",
-    "maplibre-gl": "6.11.1",
+    "maplibre-gl": "6.15.0",
     "ol": "^10.10.0",
     "parcel": "^2.16.4",
     "typedoc": "^0.28.20",
