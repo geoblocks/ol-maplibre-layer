@@ -110,6 +110,7 @@ export default class MapLibreLayer extends Layer {
 
     this.mapLibreMap.once('load', () => {
       this.loaded = true;
+      this.getRenderer().ready = true
       this.dispatchEvent(new BaseEvent('load'));
     });
   }
